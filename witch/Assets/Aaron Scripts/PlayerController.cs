@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public float crit_dmg = 1.2f;
     public int ammo = 2;
     public int max_ammo = 2;
+
+    public Card[] hand= new Card[3];
     
     //add hp max
     //add shields max

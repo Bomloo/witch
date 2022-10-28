@@ -9,10 +9,11 @@ public class CardManager : MonoBehaviour
 
     private string[] suits = { "Hearts", "Daimonds", "Club", "Spade" };
     private List<int> drawn = new List<int>();
-    [SerializeField]
-    [Tooltip("Used to make cards")]
-    public Card pref;
     private Card[] player_cards;
+    [SerializeField]
+    private PlayerController p;
+
+    public Card pref;
 
     #endregion
 
@@ -103,14 +104,15 @@ public class CardManager : MonoBehaviour
 
     public Card DrawCardPlayer()
     {
-        Card c = new Card();
+        Card c = Instantiate<Card>(pref);
         bool draw = true;
         string s = "";
         int i = 0;
         while (draw)
         {
             s = suits[Random.Range(0, 3)];
-            i = Random.Range(1, 13);
+            //i = Random.Range(1, 13);
+            i = 8;
             switch (s)
             {
                 case "Heart":
@@ -147,6 +149,7 @@ public class CardManager : MonoBehaviour
 
 
         c.SetSuitandNumber(s, i);
+        p.hand[0] = c;
         for(int j =0; j< 3; j++)
         {
             if(player_cards[j] == null)
