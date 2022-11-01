@@ -6,9 +6,8 @@ public class PlayerController : MonoBehaviour
 {
 
     public Rigidbody2D rb;
-    public BoxCollider2D bc;
     public GameObject shootpt;
-    public PlayerAction pa;
+    public PlayerAction pa; 
 
     public bool crouch_state = false;
     public bool move_state = false;
@@ -56,7 +55,6 @@ public class PlayerController : MonoBehaviour
     {
         move_state = true;
         crouch_state = false;
-        bc.enabled = true;
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
         //Debug.Log("moving");
@@ -82,13 +80,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void crouch()
-    {
-        crouch_state = true;
-        move_state = false;
-        bc.enabled = false;
-        Debug.Log("crouching");
-    }
+    //public void crouch()
+    //{
+    //    crouch_state = true;
+    //    move_state = false;
+    //    //Debug.Log("crouching");
+    //}
 
     public void take_dmg(int dmg)
     {

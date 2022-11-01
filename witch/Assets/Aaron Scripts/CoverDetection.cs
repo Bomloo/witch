@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class CoverDetection : MonoBehaviour
 {
+    public PlayerController pc;
+    public BoxCollider2D bc;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (pc.crouch_state)
+        {
+            bc.isTrigger = true;
+        }
+        //Debug.Log("left cover");
+        else
+        {
+            bc.isTrigger = false;
+        }
     }
 }

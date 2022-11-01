@@ -30,14 +30,13 @@ public class PlayerAction : MonoBehaviour
 
         if (controller.reload_state)
         {
-            
             controller.reload_state = false;
             StartCoroutine(countdown_reload(reload_timer));
         }
 
 
 
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             curr_card = controller.hand[0];
             if (curr_card.isActive)
@@ -46,7 +45,7 @@ public class PlayerAction : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             curr_card = controller.hand[1];
             if (curr_card.isActive)
@@ -55,7 +54,7 @@ public class PlayerAction : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             curr_card = controller.hand[2];
             if (curr_card.isActive)
@@ -66,11 +65,11 @@ public class PlayerAction : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.C))
-        {
-            coord = new Vector2(0, 0);
-            controller.crouch();
-        }
+        //if (Input.GetKey(KeyCode.C))
+        //{
+        //    coord = new Vector2(0, 0);
+        //    controller.crouch();
+        //}
 
         else if (Input.GetKeyDown(KeyCode.Mouse0) && controller.reloading == false)
         {
@@ -111,7 +110,7 @@ public class PlayerAction : MonoBehaviour
 
         while (start <= timer)
         {
-            Debug.Log("reloading");
+            //Debug.Log("reloading");
             start += Time.deltaTime;
             yield return null;
         }
