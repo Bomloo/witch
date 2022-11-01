@@ -8,21 +8,25 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public BoxCollider2D bc;
     public GameObject shootpt;
+    public PlayerAction pa;
 
     public bool crouch_state = false;
     public bool move_state = false;
+    public bool reload_state = false;
+    public bool reloading = false;
 
     public int health = 100;
     public int max_health = 100;
     public int shield = 0;
     public int max_shield = 0;
 
+    public int ammo = 2;
+    public int max_ammo = 2;
     public int range = 10;
     public float dmg = 20;
     public float crit_rate = 0.1f;
     public float crit_dmg = 1.2f;
-    public int ammo = 2;
-    public int max_ammo = 2;
+    
 
     public Card[] hand= new Card[3];
     
@@ -71,6 +75,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("attacking" + hit.transform.name);
         }
         
+        if (ammo == 0)
+        {
+            reload_state = true;
+            reloading = true;
+        }
     }
 
     public void crouch()
@@ -83,7 +92,11 @@ public class PlayerController : MonoBehaviour
 
     public void take_dmg(int dmg)
     {
-        if (health > 0)
+        if (shield > 0)
+        {
+            shield -= dmg;
+        }
+        else if (health > 0)
         {
             health -= dmg;
         }
@@ -124,5 +137,21 @@ public class PlayerController : MonoBehaviour
     public void reload()
     {
         ammo = max_ammo;
+        reloading = false;
+    }
+
+    public void dec_reload(float time)
+    {
+        pa.reload_timer -= time;
+    }
+
+    public void add_crit_rate(float rate)
+    {
+        crit_rate += rate;
+    }
+
+    public void add_crit_dmg(float dmg)
+    {
+        crit_dmg += dmg;
     }
 }
