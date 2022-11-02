@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
     public GameObject shootpt;
-    public PlayerAction pa; 
+    public PlayerAction pa;
 
-    public bool crouch_state = false;
+    public bool attack_state = false;
     public bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
@@ -54,10 +54,15 @@ public class PlayerController : MonoBehaviour
     public void move(float x, float y)
     {
         move_state = true;
-        crouch_state = false;
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
         //Debug.Log("moving");
+    }
+
+    public void dash(float x, float y)
+    {
+        Vector2 target_velocity = new Vector2(x, y);
+        rb.velocity = target_velocity;
     }
 
     public void attack()
@@ -70,6 +75,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (Random.value < crit_rate)
+            {
+                // hit.EnemyController.health.take_dmg(dmg * crit_dmg)
+                Debug.Log("crit");
+            }
             Debug.Log("attacking" + hit.transform.name);
         }
         
@@ -78,6 +88,8 @@ public class PlayerController : MonoBehaviour
             reload_state = true;
             reloading = true;
         }
+
+        attack_state = false;
     }
 
     //public void crouch()

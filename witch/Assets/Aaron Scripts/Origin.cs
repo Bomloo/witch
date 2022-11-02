@@ -17,7 +17,7 @@ public class Origin : MonoBehaviour
         // set origin position to x and y x buffer distance
         // rotate origin position to angle of pointer
 
-        mousepos = cam.ScreenToWorldPoint(Input.mousePosition - transform.position) - transform.position;
+        mousepos = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         transform.rotation = Quaternion.Euler(0, 0,  Mathf.Atan2(mousepos.y, mousepos.x) * Mathf.Rad2Deg - 90f);
 
