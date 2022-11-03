@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 506241618}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.2, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 2071448346}
   m_RootOrder: 0
@@ -587,7 +587,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.7088356, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.90836334, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -672,11 +672,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 981599177}
-  bc: {fileID: 0}
-  run_speed: 8
+  bc: {fileID: 981599174}
+  gun: {fileID: 506241620}
+  curr_card: {fileID: 0}
+  cam: {fileID: 519420031}
+  run_speed: 6
+  dash_speed: 15
+  dash_timer: 0.3
+  dash_dir: 0
+  rest_timer: 5
   shoot_timer: 0.25
   reload_timer: 2
-  curr_card: {fileID: 0}
 --- !u!114 &981599177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,10 +698,12 @@ MonoBehaviour:
   rb: {fileID: 981599175}
   shootpt: {fileID: 2071448345}
   pa: {fileID: 981599176}
-  crouch_state: 0
+  attack_state: 0
   move_state: 0
   reload_state: 0
   reloading: 0
+  dash_state: 0
+  resting: 0
   health: 100
   max_health: 100
   shield: 0

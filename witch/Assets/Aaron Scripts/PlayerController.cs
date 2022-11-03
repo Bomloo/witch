@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
+    public bool dash_state = false;
+    public bool resting = false;
 
     public int health = 100;
     public int max_health = 100;
@@ -28,41 +30,24 @@ public class PlayerController : MonoBehaviour
     
 
     public Card[] hand= new Card[3];
-    
-    //add hp max
-    //add shields max
-    //heal hp
-    //shield refresh
-
-
-    //critrate
-    //ammo
-
-    
-
-    // key down on crouch, key up no crouch
-    // crouch only active behind cover, needs detection
-    // player controller does the actual work
-    // player movement triggers controller functions to move
-    void Start()
-    {
-        
-    }
-
-    
 
     public void move(float x, float y)
     {
-        move_state = true;
+        if (x == 0 && y == 0)
+        {
+            move_state = false;
+        }
+        else if (dash_state == true)
+        {
+            move_state = false;
+        }
+        else
+        {
+            move_state = true;
+        }
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
         //Debug.Log("moving");
-    }
-
-    public void dash(float x, float y)
-    {
-        Vector2 target_velocity = new Vector2(x, y);
-        rb.velocity = target_velocity;
     }
 
     public void attack()

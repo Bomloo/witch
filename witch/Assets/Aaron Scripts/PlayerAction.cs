@@ -7,27 +7,27 @@ public class PlayerAction : MonoBehaviour
     public PlayerController controller;
     public BoxCollider2D bc;
     public SpriteRenderer gun;
+    public Card curr_card;
+    public Camera cam;
 
+    Vector2 coord;
     float horizontal_move = 0f;
     float vertical_move = 0f;
     public float run_speed = 10f;
-    public float dash_speed = 50f;
-    public float dash_timer = 0.5f;
-    public float dash_dir = 0f;
-    public float shoot_timer = 0f;
-    public float reload_timer = 0f;
-    public Card curr_card;
 
-    public Camera cam;
-    Vector2 mousepos;
-
-    Vector2 coord;
     
-    // Start is called before the first frame update
-    void Start()
-    {
+    public float dash_speed = 15f;
+    public float dash_timer = .3f;
+    public float dash_dir = 0f;
+    public float rest_timer = 10f;
 
-    }
+    public float shoot_timer = 0.25f;
+    public float reload_timer = 2f;
+
+    
+
+    
+
 
     // Update is called once per frame
     void Update()
@@ -81,11 +81,14 @@ public class PlayerAction : MonoBehaviour
         //    controller.crouch();
         //}
 
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && controller.resting == false)
         {
-            mousepos = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            dash_dir = (Mathf.Atan2(mousepos.y, mousepos.x) * Mathf.Rad2Deg - 90f) * Mathf.Deg2Rad;
-
+            controller.dash_state = true;
+            controller.resting = true;
+            coord = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            dash_dir = Mathf.Atan2(coord.y, coord.x);
+            StartCoroutine(dash(dash_speed, dash_timer, dash_dir));
+            StartCoroutine(rest(rest_timer));
         }
 
         else if (Input.GetKeyDown(KeyCode.Mouse0) && controller.reloading == false)
@@ -101,18 +104,26 @@ public class PlayerAction : MonoBehaviour
 
             coord = new Vector2(horizontal_move, vertical_move).normalized;
         }
-        
+
     }
 
     private void FixedUpdate()
     {
-        controller.move(coord.x * run_speed, coord.y * run_speed);
+        if (controller.dash_state == true)
+        {
+            return;
+        }
+        else
+        {
+            controller.move(coord.x * run_speed, coord.y * run_speed);
+        }
     }
+
+
 
     private IEnumerator countdown_attack(float timer)
     {
         float start = 0f;
-
         while (start <= timer)
         {
             coord = new Vector2(0, 0);
@@ -140,15 +151,25 @@ public class PlayerAction : MonoBehaviour
     private IEnumerator dash(float dash_speed, float dash_timer, float dash_dir)
     {
         float start = 0f;
-
+        coord = new Vector2((float)Mathf.Cos(dash_dir), (float)Mathf.Sin(dash_dir)).normalized;
+        controller.move(coord.x * dash_speed, coord.y * dash_speed);
         while (start <= dash_timer)
         {
-            coord = new Vector2(0, 0);
-            Vector2 d_coord = new Vector2((float)Mathf.Cos(dash_dir), (float)Mathf.Sin(dash_dir)).normalized;
-            controller.dash(d_coord.x * dash_speed, d_coord.y * dash_speed);
+            start += Time.deltaTime;
+            Debug.Log("dashing");
+            yield return null;
+        }
+        controller.dash_state = false;
+    }
+
+    private IEnumerator rest(float rest_timer)
+    {
+        float start = 0f;
+        while (start <= rest_timer)
+        {
             start += Time.deltaTime;
             yield return null;
         }
-        
+        controller.resting = false;
     }
 }
