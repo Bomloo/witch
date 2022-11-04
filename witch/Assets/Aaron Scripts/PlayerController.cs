@@ -28,8 +28,21 @@ public class PlayerController : MonoBehaviour
     public float crit_rate = 0.1f;
     public float crit_dmg = 1.2f;
     
-
     public Card[] hand= new Card[3];
+    public int indx = 0;
+
+    public void add_hand (Card card)
+    {
+        if (indx < 3)
+        {
+            hand[indx] = card;
+            indx++;
+        }
+        else
+        {
+            Destroy(card.gameObject);
+        }
+    }
 
     public void move(float x, float y)
     {

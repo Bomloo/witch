@@ -7,8 +7,9 @@ public class CardManager : MonoBehaviour
 
     #region Card_vars
 
-    private string[] suits = { "Hearts", "Daimonds", "Club", "Spade" };
-    private List<int> drawn = new List<int>();
+    private string[] suits = { "Heart", "Diamonds", "Club", "Spade" };
+    [SerializeField]
+    private List<int> drawn;
     private Card[] player_cards;
     [SerializeField]
     private PlayerController p;
@@ -28,6 +29,7 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         player_cards = new Card[3];
+        drawn = new List<int>();
     }
 
     // Update is called once per frame
@@ -116,8 +118,9 @@ public class CardManager : MonoBehaviour
         int i = 0;
         while (draw)
         {
-            s = suits[Random.Range(0, 3)];
+            s = suits[Random.Range(0, 4)];
             i = Random.Range(5, 10);
+            Debug.Log(s);
             switch (s)
             {
                 case "Heart":
@@ -176,7 +179,7 @@ public class CardManager : MonoBehaviour
                     break;
             }
         }
-        p.hand[0] = c;
+        p.add_hand(c);
         for(int j =0; j< 3; j++)
         {
             if(player_cards[j] == null)
