@@ -12,34 +12,34 @@ public class DiamondCard : Card
         switch (i)
         {
             case 2:
-                // play.add_shield(20);
-            case 3:
+                play.add_shields(20);
                 break;
-                // play.add_shield(18);
+            case 3:
+                play.add_shields(18);
                 break;
             case 4:
-                // play.add_shield(16);
+                play.add_shields(16);
                 break;
             case 5:
-                // play.add_shield(14);
+                play.add_shields(14);
                 break;
             case 6:
-                // play.add_shield(12);
+                play.add_shields(12);
                 break;
             case 7:
-                // play.add_shield(10);
+                play.add_shields(10);
                 break;
             case 8:
-                // play.add_shield(8);
+                play.add_shields(8);
                 break;
             case 9:
-                // play.add_shield(6);
+                play.add_shields(6);
                 break;
             case 10:
-                // play.add_shield(4);
+                play.add_shields(4);
                 break;
             case 13:
-                // play.add_shield(30);
+                play.add_shields(30);
                 break;
 
         }
