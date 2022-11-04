@@ -12,8 +12,14 @@ public class CardManager : MonoBehaviour
     private Card[] player_cards;
     [SerializeField]
     private PlayerController p;
-
-    public Card pref;
+    [SerializeField]
+    private HeartCard  HCard;
+    [SerializeField]
+    private DiamondCard DCard;
+    [SerializeField]
+    private ClubCard CCard;
+    [SerializeField]
+    private SpadeCard SCard;
 
     #endregion
 
@@ -104,15 +110,14 @@ public class CardManager : MonoBehaviour
 
     public Card DrawCardPlayer()
     {
-        Card c = Instantiate<Card>(pref);
+        Card c = null;
         bool draw = true;
         string s = "";
         int i = 0;
         while (draw)
         {
             s = suits[Random.Range(0, 3)];
-            //i = Random.Range(1, 13);
-            i = 8;
+            i = Random.Range(5, 10);
             switch (s)
             {
                 case "Heart":
@@ -120,6 +125,7 @@ public class CardManager : MonoBehaviour
                     {
                         draw = false;
                         drawn.Add(i);
+                        c = Instantiate<HeartCard>(HCard);
                     }
                     continue;
                 case "Diamond":
@@ -127,6 +133,7 @@ public class CardManager : MonoBehaviour
                     {
                         draw = false;
                         drawn.Add(i+13);
+                        c = Instantiate<DiamondCard>(DCard);
                     }
                     continue;
                 case "Club":
@@ -134,6 +141,7 @@ public class CardManager : MonoBehaviour
                     {
                         draw = false;
                         drawn.Add(i+26);
+                        c = Instantiate<ClubCard>(CCard);
                     }
                     continue;
                 case "Spade":
@@ -141,6 +149,7 @@ public class CardManager : MonoBehaviour
                     {
                         draw = false;
                         drawn.Add(i+39);
+                        c = Instantiate<SpadeCard>(SCard);
                     }
                     continue;
             }
@@ -149,6 +158,24 @@ public class CardManager : MonoBehaviour
 
 
         c.SetSuitandNumber(s, i);
+        if(s == "Diamond" && i == 1)
+        {
+            c.isActive = true;
+        } else if(s=="Heart")
+        {
+            switch (i)
+            {
+                case 2:
+                    c.isActive = true;
+                    break;
+                case 3:
+                    c.isActive = true;
+                    break;
+                case 4:
+                    c.isActive = true;
+                    break;
+            }
+        }
         p.hand[0] = c;
         for(int j =0; j< 3; j++)
         {
