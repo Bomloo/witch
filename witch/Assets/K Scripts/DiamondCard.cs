@@ -8,10 +8,40 @@ public class DiamondCard : Card
 
     public override void StartPassive(PlayerController play)
     {
-        if (number == 8)
+        int i = number;
+        switch (i)
         {
-            // play.addmaxshield(8);
-            //play.addshield(8);
+            case 2:
+                // play.add_shield(20);
+            case 3:
+                break;
+                // play.add_shield(18);
+                break;
+            case 4:
+                // play.add_shield(16);
+                break;
+            case 5:
+                // play.add_shield(14);
+                break;
+            case 6:
+                // play.add_shield(12);
+                break;
+            case 7:
+                // play.add_shield(10);
+                break;
+            case 8:
+                // play.add_shield(8);
+                break;
+            case 9:
+                // play.add_shield(6);
+                break;
+            case 10:
+                // play.add_shield(4);
+                break;
+            case 13:
+                // play.add_shield(30);
+                break;
+
         }
     }
 }
