@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
         if (indx < 3)
         {
             hand[indx] = card;
+            if (card.isActive == false)
+            {
+                card.StartPassive(this);
+            }
             indx++;
         }
         else
@@ -75,8 +79,12 @@ public class PlayerController : MonoBehaviour
         {
             if (Random.value < crit_rate)
             {
-                // hit.EnemyController.health.take_dmg(dmg * crit_dmg)
+                hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg);
                 Debug.Log("crit");
+            }
+            else
+            {
+                hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg);
             }
             Debug.Log("attacking" + hit.transform.name);
         }

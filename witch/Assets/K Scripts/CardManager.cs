@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
 
     #region Card_vars
 
-    private string[] suits = { "Heart", "Diamonds", "Club", "Spade" };
+    private string[] suits = { "Heart", "Diamond", "Club", "Spade" };
     [SerializeField]
     private List<int> drawn;
     private Card[] player_cards;
