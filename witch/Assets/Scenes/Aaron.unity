@@ -708,16 +708,24 @@ MonoBehaviour:
   max_health: 100
   shield: 0
   max_shield: 0
+  vulnerable: 1
+  reflect: 0
+  reflect_dmg: 0
+  negate_dmg: 0
   ammo: 2
   max_ammo: 2
   range: 20
   dmg: 20
   crit_rate: 0.1
   crit_dmg: 1.2
+  last_shot: 0
+  stack_crit: 0
+  max_stack: 0
   hand:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  indx: 0
 --- !u!1 &1836082921
 GameObject:
   m_ObjectHideFlags: 0
