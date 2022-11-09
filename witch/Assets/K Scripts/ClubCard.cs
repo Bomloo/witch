@@ -12,31 +12,31 @@ public class ClubCard : Card
         switch (i)
         {
             case 2:
-                play.add_crit_rate(10);
+                play.add_crit_rate(.1f);
                 break;
             case 3:
-                play.add_crit_rate(9);
+                play.add_crit_rate(0.09f);
                 break;
             case 4:
-                play.add_crit_rate(8);
+                play.add_crit_rate(0.08f);
                 break;
             case 5:
-                play.add_crit_rate(7);
+                play.add_crit_rate(.07f);
                 break;
             case 6:
-                play.add_crit_rate(6);
+                play.add_crit_rate(.06f);
                 break;
             case 7:
-                play.add_crit_rate(5);
+                play.add_crit_rate(.05f);
                 break;
             case 8:
-                play.add_crit_rate(4);
+                play.add_crit_rate(.04f);
                 break;
             case 9:
-                play.add_crit_rate(3);
+                play.add_crit_rate(.03f);
                 break;
             case 10:
-                play.add_crit_rate(2);
+                play.add_crit_rate(.02f);
                 break;
             case 12:
                 play.add_crit_dmg(.2f);

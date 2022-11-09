@@ -22,7 +22,7 @@ public class Salamandermove : MonoBehaviour
     #region Attack_vars
     [SerializeField]
     [Tooltip("The ammount of damage salamander does on hit")]
-    private float dmg;
+    private int dmg;
     [SerializeField]
     [Tooltip("Amount of time between attacks")]
     private float attTimer;
@@ -70,10 +70,25 @@ public class Salamandermove : MonoBehaviour
     #endregion
 
     #region Attack_functions
-    private void Attack()
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player")){
+            if(attTimer <= 0)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+    }
+    IEnumerator Attack()
     {
         // insert animation here
         //point of contact
+        attTimer = 1.5f;
+        yield return new WaitForSeconds(.75f);
+        pc.transform.GetComponent<PlayerController>().take_dmg(dmg);
+        yield return new WaitForSeconds(.75f);
+        attTimer = 0;
         //transform.GetComponent<PlayerController>()
         //finish animation
 
