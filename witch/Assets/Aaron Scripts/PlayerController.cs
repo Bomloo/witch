@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     public int max_stack = 0;
     public float vamp = 0f;
     public float focus_fire = 0f;
-    //curr_ene enemy controller;
+    public EnenemyHealth curr_ene = null;
     
     
     public Card[] hand= new Card[3];
@@ -90,37 +90,37 @@ public class PlayerController : MonoBehaviour
         {
             if (ammo == 1 && last_shot)
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg);
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * focus_fire);
+                }
+                else if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                {
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
                 }
                 Debug.Log("crit");
             }
             else if (Random.value < crit_rate)
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg);
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * focus_fire);
+                }
+                else if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                {
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
                 }
                 Debug.Log("crit");
             }
             else
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg);
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * focus_fire);
+                }
+                else if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                {
+                    hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg);
                 }
                 
             }

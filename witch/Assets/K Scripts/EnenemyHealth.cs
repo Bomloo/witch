@@ -7,8 +7,8 @@ public class EnenemyHealth : MonoBehaviour
     #region Health_funcs
     [SerializeField]
     [Tooltip("Changes what the starting health for an enemy will be ")]
-    private int maxHP;
-    private int curHP;
+    private float maxHP;
+    private float curHP;
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class EnenemyHealth : MonoBehaviour
         curHP = maxHP;
     }
 
-    public void TakeDamage(int i)
+    public void TakeDamage(float i)
     {
         curHP -= i;
         if(curHP <= 0)
