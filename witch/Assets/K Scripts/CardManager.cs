@@ -11,6 +11,7 @@ public class CardManager : MonoBehaviour
     [SerializeField]
     private List<int> drawn;
     private Card[] player_cards;
+    private int current_card;
     [SerializeField]
     private PlayerController p;
     [SerializeField]
@@ -30,6 +31,7 @@ public class CardManager : MonoBehaviour
     {
         player_cards = new Card[3];
         drawn = new List<int>();
+        current_card = 0;
     }
 
     // Update is called once per frame
@@ -180,16 +182,19 @@ public class CardManager : MonoBehaviour
             }
         }
         p.add_hand(c);
-        for(int j =0; j< 3; j++)
+        if(current_card < 3)
         {
-            if(player_cards[j] == null)
-            {
-                player_cards[j] = c;
-                break;
-            }
+            player_cards[current_card] = c;
+            current_card++;
         }
+        
         return c;
 
     }
+
+    //public Card ReplaceCard(int i)
+    //{
+
+    //}
     #endregion
 }
