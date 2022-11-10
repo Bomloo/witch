@@ -38,7 +38,9 @@ public class SpadeCard : Card
             case 10:
                 play.add_ammo(1);
                 break;
-
+            case 11:
+                play.jack_spades();
+                break;
         }
     }
 }

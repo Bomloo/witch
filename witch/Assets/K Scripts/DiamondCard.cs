@@ -11,6 +11,9 @@ public class DiamondCard : Card
         int i = number;
         switch (i)
         {
+            case 1:
+                play.ace_diamonds();
+                break;
             case 2:
                 play.add_shields(20);
                 break;
@@ -37,6 +40,12 @@ public class DiamondCard : Card
                 break;
             case 10:
                 play.add_shields(4);
+                break;
+            case 11:
+                play.jack_diamonds();
+                break;
+            case 12:
+                play.queen_diamonds();
                 break;
             case 13:
                 play.add_shields(30);

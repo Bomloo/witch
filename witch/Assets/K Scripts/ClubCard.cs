@@ -11,6 +11,9 @@ public class ClubCard : Card
         int i = number;
         switch (i)
         {
+            case 1:
+                play.ace_clubs();
+                break;
             case 2:
                 play.add_crit_rate(.1f);
                 break;
@@ -37,6 +40,12 @@ public class ClubCard : Card
                 break;
             case 10:
                 play.add_crit_rate(.02f);
+
+                break;
+            case 11:
+                play.jack_clubs();
+
+
                 break;
             case 12:
                 play.add_crit_dmg(.2f);

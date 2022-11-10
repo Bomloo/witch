@@ -4,12 +4,33 @@ using UnityEngine;
 
 public class HeartCard : Card
 {
-    public override void Active(PlayerController play) { }
+    public override void Active(PlayerController play)
+    {
+        int i = number;
+        switch (i)
+        {
+            case 4:
+                play.heal(1);
+                used = true;
+                break;
+            case 3:
+                play.heal(2);
+                used = true;
+                break;
+            case 2:
+                play.heal(3);
+                used = true;
+                break;
+        }
+    }
 
     public override void StartPassive(PlayerController play) {
         int i = number;
         switch (i)
         {
+            case 1:
+                play.ace_hearts();
+                break;
             case 5:
                 play.add_health(+30);
                 break;
