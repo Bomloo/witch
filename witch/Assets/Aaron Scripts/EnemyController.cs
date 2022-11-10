@@ -15,6 +15,14 @@ public class EnemyController : MonoBehaviour
     public bool ranged_z = false;
     public bool chase_z = true;
 
+    public int atk_range = 0;
+    public float atk_timer = 0f;
+    public float rest_timer = 0f;
+
+    private void Start()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()
@@ -35,5 +43,26 @@ public class EnemyController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(coord.x * run_speed, coord.y * run_speed);
+    }
+
+    public void attack(int atk_range)
+    {
+
+    }
+
+    private IEnumerator fire(int range, float atk_timer)
+    {
+        float start = 0f;
+        while (start <= atk_timer)
+        {
+            start += Time.deltaTime;
+            yield return null;
+        }
+        attack(atk_range)
+    }
+
+    private IEnumerator buffer(float rest_timer)
+    {
+        yield return null;
     }
 }
