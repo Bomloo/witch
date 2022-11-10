@@ -1,46 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
+    
     public Rigidbody2D rb;
     public GameObject shootpt;
     public PlayerAction pa;
 
+
+    #region Basic_var_bools
     public bool attack_state = false;
-    public bool move_state = false;
+    private bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
     public bool dash_state = false;
     public bool resting = false;
+    #endregion
 
-    public float health = 100;
-    public float max_health = 100;
-    public float shield = 0;
-    public float max_shield = 0;
-    public bool vulnerable = true;
-    public bool reflect = false;
-    public float reflect_dmg = 0f;
-    public float negate_dmg = 0f;
+    #region Health_vars
+    private float health = 100;
+    [SerializeField]
+    private float max_health = 100;
+    private float shield = 0;
+    private float max_shield = 0;
+    private bool vulnerable = true;
+    private bool reflect = false;
+    private float reflect_dmg = 0f;
+    private float negate_dmg = 0f;
+    #endregion
 
+    #region Attack_vars
     public int ammo = 2;
-    public int max_ammo = 2;
-    public int range = 10;
-    public float dmg = 20;
-    public float crit_rate = 0.1f;
-    public float crit_dmg = 1.2f;
-    public bool last_shot = false;
-    public bool stack_crit = false;
-    public int max_stack = 0;
-    public float vamp = 0f;
-    public bool focus_fire = false;
-    public EnenemyHealth curr_ene = null;
-    
-    
+    [SerializeField]
+    private int max_ammo = 2;
+    [SerializeField]
+    private int range = 10;
+    [SerializeField]
+    private float dmg = 20;
+    [SerializeField]
+    private float crit_rate = 0.1f;
+    [SerializeField]
+    private float crit_dmg = 1.2f;
+    private bool last_shot = false;
+    private bool stack_crit = false;
+    private int max_stack = 0;
+    private float vamp = 0f;
+    private bool focus_fire = false;
+    private EnenemyHealth curr_ene = null;
+    #endregion
+
+    #region UI_vars
+    [SerializeField]
+    private Slider hp;
+    [SerializeField]
+    private TextMeshProUGUI ammoText;
+    #endregion
+
+
     public Card[] hand= new Card[3];
-    public int indx = 0;
+    private int indx = 0;
 
     public void add_hand (Card card)
     {
@@ -148,6 +170,7 @@ public class PlayerController : MonoBehaviour
             //curr_ene = hit.transform.GetComponent<Salamandermove>();
         }
         ammo--;
+        ammoText.text = "Ammo: " + ammo.ToString();
         if (ammo == 0)
         {
             reload_state = true;
@@ -176,6 +199,7 @@ public class PlayerController : MonoBehaviour
             else if (health > 0)
             {
                 health -= dmg;
+                hp.value = health / max_health;
             }
 
             if (stack_crit)
@@ -192,10 +216,12 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    #region Basic_Card_funcs
     public void add_health(float extra_health)
     {
         health += extra_health;
         max_health += extra_health;
+        hp.value = health / max_health;
     }
 
     public void heal(float amount)
@@ -203,6 +229,7 @@ public class PlayerController : MonoBehaviour
         if (health < max_health)
         {
             health += amount;
+            hp.value = health / max_health;
         }
     }
 
@@ -221,12 +248,14 @@ public class PlayerController : MonoBehaviour
     {
         ammo += extra_ammo;
         max_ammo += extra_ammo;
+        ammoText.text = "Ammo: " + ammo.ToString();
     }
 
     public void reload()
     {
         ammo = max_ammo;
         reloading = false;
+        ammoText.text = "Ammo: " + ammo.ToString();
     }
 
     public void dec_reload(float time)
@@ -243,7 +272,9 @@ public class PlayerController : MonoBehaviour
     {
         crit_dmg += dmg;
     }
+    #endregion
 
+    #region Special_Card_funcs
     public void ace_clubs()
     {
         last_shot = true;
@@ -284,7 +315,7 @@ public class PlayerController : MonoBehaviour
     {
 
     }
-
+    #endregion
     private IEnumerator countdown_invul(float invul_timer)
     {
         yield return new WaitForSeconds(invul_timer);

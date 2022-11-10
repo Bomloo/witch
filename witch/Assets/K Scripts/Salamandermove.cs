@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Salamandermove : MonoBehaviour
 {
-    #region Health_vars
-    [SerializeField]
-    [Tooltip("Changes what the starting health for salamnder will be ")]
-    private float maxhealth;
-    private float curhealth;
-    #endregion
 
     #region Movment_vars
     [SerializeField]
@@ -33,9 +27,9 @@ public class Salamandermove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        curhealth = maxhealth;
         salRB = GetComponent<Rigidbody2D>();
         pc = FindObjectOfType<PlayerController>().GetComponent<Transform>();
+        attTimer = 0;
     }
 
     // Update is called once per frame
@@ -57,18 +51,6 @@ public class Salamandermove : MonoBehaviour
     }
     #endregion
 
-    #region Health_functions
-    public void TakeDamage(float d)
-    {
-        curhealth -= d;
-        if(curhealth <= 0)
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    #endregion
-
     #region Attack_functions
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -84,10 +66,10 @@ public class Salamandermove : MonoBehaviour
     {
         // insert animation here
         //point of contact
-        attTimer = 1.5f;
-        yield return new WaitForSeconds(.75f);
+        attTimer = 1f;
+        yield return new WaitForSeconds(.5f);
         pc.transform.GetComponent<PlayerController>().take_dmg(dmg);
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(.5f);
         attTimer = 0;
         //transform.GetComponent<PlayerController>()
         //finish animation
