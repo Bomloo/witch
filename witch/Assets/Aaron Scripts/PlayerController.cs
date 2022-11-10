@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour
     public bool stack_crit = false;
     public int max_stack = 0;
     public float vamp = 0f;
-    public float focus_fire = 0f;
-    //curr_ene enemy controller;
+    public bool focus_fire = false;
+    public EnenemyHealth curr_ene = null;
     
     
     public Card[] hand= new Card[3];
@@ -90,39 +90,51 @@ public class PlayerController : MonoBehaviour
         {
             if (ammo == 1 && last_shot)
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg);
+                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
+                    }
+                    else
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
+                    }
+                    
                 }
                 Debug.Log("crit");
             }
             else if (Random.value < crit_rate)
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * crit_dmg);
+                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
+                    }
+                    else
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
+                    }
+                    
                 }
                 Debug.Log("crit");
             }
             else
             {
-                //if (hit.transform.GetComponent<Salamandermove>() != null && hit.transform.GetComponent<Salamandermove>() == curr_ene)
-                //{
-                //    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg * focus_fire);
-                //}
-                if (hit.transform.GetComponent<Salamandermove>() != null)
+                if (hit.transform.GetComponent<EnenemyHealth>() != null)
                 {
-                    hit.transform.GetComponent<Salamandermove>().TakeDamage(dmg);
+                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * 1.2f);
+                    }
+                    else
+                    {
+                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg);
+                    }
+                    
                 }
-                
+                Debug.Log("hit");
             }
             
             if (stack_crit && max_stack < 5)
@@ -265,7 +277,7 @@ public class PlayerController : MonoBehaviour
 
     public void jack_spades()
     {
-        focus_fire = 1.2f;
+        focus_fire = true;
     }
 
     public void king_spades()
