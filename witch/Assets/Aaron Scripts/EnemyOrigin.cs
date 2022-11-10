@@ -6,12 +6,7 @@ public class EnemyOrigin : MonoBehaviour
 {
     public Transform player;
     public Vector2 coord;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()

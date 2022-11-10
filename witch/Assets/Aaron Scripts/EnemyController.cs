@@ -12,11 +12,9 @@ public class EnemyController : MonoBehaviour
     public float run_speed = 2f;
     public int range = 10;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool ranged_z = false;
+    public bool chase_z = true;
+
 
     // Update is called once per frame
     void Update()
