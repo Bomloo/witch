@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public Rigidbody2D rb;
     public Transform player;
     public Transform shootpt;
+    public BoxCollider2D trig;
     public Vector2 coord;
     public Vector2 shoot;
     public float run_speed = 2f;
@@ -17,6 +18,8 @@ public class EnemyController : MonoBehaviour
 
     public bool seeing = false;
     public bool rest_state = false;
+    public bool moving = false;
+    public bool touch = false;
 
     public int atk_range = 0;
     public float atk_timer = 0f;
@@ -30,53 +33,83 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (seeing)
+        if (chase_z)
         {
-            if (ranged_z)
+            atk_range = 1;
+            if (rest_state == false && touch == true)
             {
-
-            }
-
-            else if (chase_z)
-            {
-
-            }
-            if (rest_state == false)
-            {
-                
+                rest_state = true;
+                atk_timer = 0f;
                 StartCoroutine(fire(atk_range, atk_timer));
             }
-            else
+            else if (moving == true)
             {
+                moving = false;
+                rest_timer = 2f;
                 StartCoroutine(buffer(rest_timer));
             }
         }
 
+        if (ranged_z)
+        {
+            atk_range = 10;
+            //Debug.Log("ranged");
+            if (rest_state == false && seeing == true)
+            {
+                rest_state = true;
+                atk_timer = (float)Random.Range(4, 6);
+                StartCoroutine(fire(atk_range, atk_timer));
+            }
+            else if (moving == true)
+            {
+                moving = false;
+                rest_timer = (float)Random.Range(2, 4);
+                StartCoroutine(buffer(rest_timer));
+            }
+        }
 
         RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, range);
-        if (hit.transform.CompareTag("Player") == false)
+        if (hit.transform == null || hit.transform.CompareTag("Player") == false || touch)
         {
             coord = new Vector2(0, 0);
             seeing = false;
-            Debug.Log("blind");
+            //Debug.Log("blind");
         }
         else {
             coord = player.position - transform.position;
             coord = coord.normalized;
             seeing = true;
-            Debug.Log("spot");
+            //Debug.Log("spot");
         }
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(coord.x * run_speed, coord.y * run_speed);
+        
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform == null || collision.transform.CompareTag("Player") == false)
+        {
+            touch = false;
+        }
+        else
+        {
+            touch = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        touch = false;
     }
 
     public void attack(int atk_range)
     {
         RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, atk_range);
-        if (hit.transform.CompareTag("Player") == false)
+        if (hit.transform == null || hit.transform.CompareTag("Player") == false)
         {
             Debug.Log("miss");
         }
@@ -88,6 +121,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator fire(int atk_range, float atk_timer)
     {
+        //Debug.Log("working");
         float start = 0f;
         while (start <= atk_timer)
         {
@@ -96,7 +130,9 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
         attack(atk_range);
-        rest_state = true;
+        moving = true;
+        Debug.Log("atk once");
+        
     }
 
     private IEnumerator buffer(float rest_timer)
@@ -107,6 +143,7 @@ public class EnemyController : MonoBehaviour
             start += Time.deltaTime;
             yield return null;
         }
+        Debug.Log("rest");
         rest_state = false;
     }
 }
