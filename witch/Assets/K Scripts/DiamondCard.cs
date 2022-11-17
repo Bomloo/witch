@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class DiamondCard : Card
 {
-    public override void Active(PlayerController play) { }
+    public override void Active(PlayerController play) {
+        play.ace_diamonds();
+        used = true;
+    }
 
     public override void StartPassive(PlayerController play)
     {
         int i = number;
         switch (i)
         {
-            case 1:
-                play.ace_diamonds();
-                break;
             case 2:
                 play.add_shields(20);
                 break;
