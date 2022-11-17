@@ -116,6 +116,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             Debug.Log("hit");
+            hit.transform.GetComponent<PlayerController>().take_dmg(2);
         }
     }
 

@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83bf2e4d609a59c4d8793518b40a5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawn: 
   p: {fileID: 1704648605}
   HCard: {fileID: 41966507}
   DCard: {fileID: 1320659404}
@@ -365,7 +366,7 @@ Transform:
   - {fileID: 1945788642}
   - {fileID: 432632282}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &928235088
 GameObject:
@@ -476,7 +477,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &928235092
 MonoBehaviour:
@@ -574,6 +575,79 @@ Transform:
   m_Father: {fileID: 2055573437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1254970755
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3132069074922262383, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1704648608}
+    - target: {fileID: 3132069075986458433, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1704648608}
+    - target: {fileID: 3132069075986458433, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: chase_z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458433, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: ranged_z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.16995
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.963572
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458436, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3132069075986458443, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
+      propertyPath: m_Name
+      value: enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51632df7330aefe429cc2c3bd46f622a, type: 3}
 --- !u!1 &1320659402
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,26 +782,23 @@ MonoBehaviour:
   shootpt: {fileID: 2055573436}
   pa: {fileID: 1704648604}
   attack_state: 0
-  move_state: 0
   reload_state: 0
   reloading: 0
   dash_state: 0
   resting: 0
-  health: 100
   max_health: 100
-  shield: 0
-  max_shield: 0
   ammo: 2
   max_ammo: 2
   range: 20
   dmg: 20
   crit_rate: 0.1
   crit_dmg: 1.2
+  hp: {fileID: 0}
+  ammoText: {fileID: 0}
   hand:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  indx: 0
 --- !u!50 &1704648606
 Rigidbody2D:
   serializedVersion: 4
@@ -814,7 +885,7 @@ Transform:
   m_Children:
   - {fileID: 2035188757}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945788640
 GameObject:

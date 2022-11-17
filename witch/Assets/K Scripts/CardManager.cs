@@ -52,7 +52,7 @@ public class CardManager : MonoBehaviour
         int ind = 0;
         while (draw)
         {
-            s = suits[Random.Range(0, 3)];
+            s = suits[Random.Range(0, 4)];
             i = Random.Range(1, 13);
             switch (s)
             {
@@ -121,8 +121,7 @@ public class CardManager : MonoBehaviour
         while (draw)
         {
             s = suits[Random.Range(0, 4)];
-            i = Random.Range(5, 10);
-            Debug.Log(s);
+            i = Random.Range(1, 14);
             switch (s)
             {
                 case "Heart":

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnenemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour
 {
     #region Health_funcs
     [SerializeField]

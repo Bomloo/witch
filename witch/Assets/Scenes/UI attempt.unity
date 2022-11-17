@@ -382,6 +382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 1
+  direction: {x: 0, y: 0}
+  distance: 0
   dmg: 5
   attTimer: 2
 --- !u!212 &353594813
@@ -1145,7 +1147,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1446758515
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

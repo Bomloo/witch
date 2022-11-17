@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private int max_stack = 0;
     private float vamp = 0f;
     private bool focus_fire = false;
-    private EnenemyHealth curr_ene = null;
+    private EnemyHealth curr_ene = null;
     #endregion
 
     #region UI_vars
@@ -62,23 +62,34 @@ public class PlayerController : MonoBehaviour
 
 
     public Card[] hand= new Card[3];
-    private int indx = 0;
+    private int indx;
+
+    private void Start()
+    {
+        indx = 0;
+    }
 
     public void add_hand (Card card)
     {
+        //Debug.Log(card);
+        //Debug.Log(indx);
         if (indx < 3)
         {
+            //Debug.Log("pass here");
             hand[indx] = card;
             if (card.isActive == false)
             {
                 card.StartPassive(this);
+                Debug.Log("passive");
             }
-            indx++;
+            
         }
         else
         {
             Destroy(card.gameObject);
         }
+        Debug.Log("inc");
+        indx++;
     }
 
     public void move(float x, float y)
@@ -106,57 +117,63 @@ public class PlayerController : MonoBehaviour
         
         if (hit.collider == null)
         {
-            Debug.Log("missed");
+            //Debug.Log("missed");
         }
         else
         {
             if (ammo == 1 && last_shot)
             {
-                if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                if (hit.transform.GetComponent<EnemyHealth>() != null)
                 {
-                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    if (focus_fire && hit.transform.GetComponent<EnemyHealth>() == curr_ene)
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
                     }
                     else
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg);
                     }
                     
                 }
-                Debug.Log("crit");
+                //Debug.Log("crit");
             }
             else if (Random.value < crit_rate)
             {
-                if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                if (hit.transform.GetComponent<EnemyHealth>() != null)
                 {
-                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    //Debug.Log(curr_ene);
+                    curr_ene = hit.transform.GetComponent<EnemyHealth>();
+                    if (focus_fire && hit.transform.GetComponent<EnemyHealth>() == curr_ene)
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg * 1.2f);
+                        //Debug.Log("focus");
                     }
                     else
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * crit_dmg);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg);
                     }
                     
                 }
-                Debug.Log("crit");
+                //Debug.Log("crit");
             }
             else
             {
-                if (hit.transform.GetComponent<EnenemyHealth>() != null)
+                if (hit.transform.GetComponent<EnemyHealth>() != null)
                 {
-                    if (focus_fire && hit.transform.GetComponent<EnenemyHealth>() == curr_ene)
+                    //Debug.Log(curr_ene);
+                    curr_ene = hit.transform.GetComponent<EnemyHealth>();
+                    if (focus_fire && hit.transform.GetComponent<EnemyHealth>() == curr_ene)
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg * 1.2f);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * 1.2f);
+                        //Debug.Log("focus");
                     }
                     else
                     {
-                        hit.transform.GetComponent<EnenemyHealth>().TakeDamage(dmg);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg);
                     }
                     
                 }
-                Debug.Log("hit");
+                //Debug.Log("hit");
             }
             
             if (stack_crit && max_stack < 5)
@@ -222,6 +239,7 @@ public class PlayerController : MonoBehaviour
         health += extra_health;
         max_health += extra_health;
         hp.value = health / max_health;
+        Debug.Log("add h");
     }
 
     public void heal(float amount)
