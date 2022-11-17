@@ -10,7 +10,13 @@ public class Salamandermove : MonoBehaviour
     [Tooltip("Changes what the normal move speed is")]
     private float movespeed;
     private Rigidbody2D salRB;
-    private Transform pc;
+    //private Transform pc;
+    [SerializeField]
+    private Vector2 direction;
+    [SerializeField]
+    private float distance;
+    private bool forward;
+    private Vector2 objective;
     #endregion
 
     #region Attack_vars
@@ -28,26 +34,34 @@ public class Salamandermove : MonoBehaviour
     void Start()
     {
         salRB = GetComponent<Rigidbody2D>();
-        pc = FindObjectOfType<PlayerController>().GetComponent<Transform>();
+        //pc = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         attTimer = 0;
+        forward = true;
+        objective = (Vector2) transform.position + direction.normalized * distance;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        if((pc.position - this.transform.position).magnitude < 2)
-        {
-            Attack();
-        }
+       
     }
     #endregion
 
     #region Movement_funcitons
     private void Move()
     {
-        Vector3 distance = pc.position - this.transform.position;
-        salRB.velocity = distance.normalized * movespeed;
+      if((objective - (Vector2) transform.position).magnitude < 1)
+        {
+            if (forward)
+            {
+                objective = objective - direction.normalized * distance;
+            }
+            else
+            {
+                objective = objective + direction.normalized * distance;
+            }
+        }
     }
     #endregion
 
@@ -68,7 +82,7 @@ public class Salamandermove : MonoBehaviour
         //point of contact
         attTimer = 1f;
         yield return new WaitForSeconds(.5f);
-        pc.transform.GetComponent<PlayerController>().take_dmg(dmg);
+       
         yield return new WaitForSeconds(.5f);
         attTimer = 0;
         //transform.GetComponent<PlayerController>()
