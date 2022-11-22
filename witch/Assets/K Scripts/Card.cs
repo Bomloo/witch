@@ -8,6 +8,7 @@ public class Card : MonoBehaviour
     public string suit;
     public int number;
     public bool used;
+    public string description;
     #endregion
 
     public bool isActive;
@@ -27,7 +28,7 @@ public class Card : MonoBehaviour
 
     #region Name_funcs
     //universal so we can set the suit and number and acess them later
-    public void SetSuitandNumber(string s, int n)
+    public virtual void SetSuitandNumber(string s, int n)
     {
         suit = s;
         number = n;
