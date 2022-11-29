@@ -44,8 +44,9 @@ public class EnemyHealth : MonoBehaviour
 
         if (knockback)
         {
+            Debug.Log("knock");
             rb.velocity = new Vector2(0, 0);
-            rb.AddForce(-transform.up * knock_force);
+            rb.AddForce(force * knock_force);
         }
 
         else
