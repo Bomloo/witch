@@ -6,6 +6,7 @@ public class Fly : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed = 2f;
+    public float dmg = 10f;
     
     // Start is called before the first frame update
     void Start()
@@ -27,5 +28,10 @@ public class Fly : MonoBehaviour
     private void move(float speed)
     {
         rb.velocity = new Vector2(-1 * speed, 0);
+    }
+
+    private void attack(float dmg)
+    {
+
     }
 }

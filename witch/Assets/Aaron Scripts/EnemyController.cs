@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public Transform player;
     public Transform shootpt;
     public BoxCollider2D trig;
+    public EnemyHealth self_health;
     public Vector2 coord;
     public Vector2 shoot;
     public float run_speed = 2f;
@@ -54,7 +55,7 @@ public class EnemyController : MonoBehaviour
         {
             atk_range = 10;
             //Debug.Log("ranged");
-            if (rest_state == false && seeing == true)
+            if (rest_state == false && (seeing == true || touch == true))
             {
                 rest_state = true;
                 atk_timer = (float)Random.Range(4, 6);
@@ -91,13 +92,13 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform == null || collision.transform.CompareTag("Player") == false)
+        if (collision.transform.CompareTag("Player"))
         {
-            touch = false;
+            touch = true;
         }
         else
         {
-            touch = true;
+            touch = false;
         }
     }
 
@@ -111,12 +112,12 @@ public class EnemyController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, atk_range);
         if (hit.transform == null || hit.transform.CompareTag("Player") == false)
         {
-            Debug.Log("miss");
+            //Debug.Log("miss");
         }
         else
         {
-            Debug.Log("hit");
-            hit.transform.GetComponent<PlayerController>().take_dmg(2);
+            //Debug.Log("hit");
+            hit.transform.GetComponent<PlayerController>().take_dmg(2, self_health);
         }
     }
 
@@ -133,7 +134,7 @@ public class EnemyController : MonoBehaviour
         attack(atk_range);
         moving = true;
         Debug.Log("atk once");
-        
+
     }
 
     private IEnumerator buffer(float rest_timer)
@@ -144,7 +145,7 @@ public class EnemyController : MonoBehaviour
             start += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("rest");
+        //Debug.Log("rest");
         rest_state = false;
     }
 }
