@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //[RequireComponent(typeof( NavMeshAgent))]
-public class BasicMovement : MonoBehaviour
+public class SmartMovement : MonoBehaviour
 {
     #region Movement_vars
     public NavMeshAgent Agent;
@@ -45,7 +45,7 @@ public class BasicMovement : MonoBehaviour
         }
     }
 
-    private void Findandmovetwoardsplayer()
+    public virtual void Findandmovetwoardsplayer()
     {
         Debug.Log(Agent);
         Agent.SetDestination(pc.transform.position);
