@@ -5,6 +5,10 @@ using UnityEngine;
 public class TempCardGive : MonoBehaviour
 {
     public CardManager cm;
+    [SerializeField]
+    private SceneLoader sc;
+    [SerializeField]
+    private int scene;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -12,6 +16,16 @@ public class TempCardGive : MonoBehaviour
         {
             cm.DrawCardPlayer();
         }
+        if(scene == 1)
+        {
+            sc.levelone();
+        }
+        else if( scene ==2)
+        {
+            sc.LevelTwo();
+        }
+           
+        
     }
 
     // Start is called before the first frame update
