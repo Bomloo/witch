@@ -152,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.90836334, b: 1, a: 1}
   m_FlipX: 0
@@ -200,37 +200,31 @@ MonoBehaviour:
   rb: {fileID: 6636790396404325250}
   shootpt: {fileID: 6636790395350192988}
   pa: {fileID: 6636790396404325261}
+  heart: {fileID: 4019389203175339345, guid: 81885d6b793f94d4ca0add7b7ed36c9c, type: 3}
   attack_state: 0
-  move_state: 0
   reload_state: 0
   reloading: 0
   dash_state: 0
   resting: 0
-  health: 100
-  max_health: 100
-  shield: 0
-  max_shield: 0
   vulnerable: 1
-  reflect: 0
-  reflect_dmg: 0
-  negate_dmg: 0
-  ammo: 2
+  max_health: 100
   max_ammo: 2
   range: 20
   dmg: 20
   crit_rate: 0.1
   crit_dmg: 1.2
   last_shot: 0
-  stack_crit: 0
-  max_stack: 0
-  vamp: 0
-  focus_fire: 0
-  curr_ene: {fileID: 0}
+  deathdrop: 0
+  hitdrop: 0
+  selfdrop: 0
+  selfdrop_timer: 10
+  selfdrop_pause: 0
+  hp: {fileID: 0}
+  ammoText: {fileID: 0}
   hand:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  indx: 0
 --- !u!114 &6636790396404325261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +247,8 @@ MonoBehaviour:
   dash_timer: 0.3
   dash_dir: 0
   rest_timer: 5
+  max_ammo: 2
+  ammo: 2
   shoot_timer: 0.25
   reload_timer: 2
 --- !u!61 &6636790396404325251
