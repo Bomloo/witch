@@ -45,17 +45,4 @@ public class SpiderKid : MonoBehaviour
     
     }
     #endregion
-
-    #region Attack_funcs
-    /*IEnumerator attack()
-    {
-        attacking = true;
-        yield return new waitforSeconds();
-        raycaset
-        hit[] raycast = new raycast()
-        check raycast
-        damage;
-        finish raycast;
-    }*/
-    #endregion
 }
