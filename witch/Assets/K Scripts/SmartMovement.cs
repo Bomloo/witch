@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //[RequireComponent(typeof( NavMeshAgent))]
-public class BasicMovement : MonoBehaviour
+public class SmartMovement : MonoBehaviour
 {
     #region Movement_vars
     public NavMeshAgent Agent;
