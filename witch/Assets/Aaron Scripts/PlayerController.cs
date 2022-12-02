@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shootpt;
     public PlayerAction pa;
     public HealthDrop heart;
+    public GameObject self;
 
 
     #region Basic_var_bools
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
     public float selfdrop_timer = 10f;
     public bool selfdrop_pause = false;
     public bool knockback = false;
+    public bool pierce = false;
     #endregion
 
     #region UI_vars
@@ -70,9 +72,12 @@ public class PlayerController : MonoBehaviour
     public Card[] hand= new Card[3];
     private int indx;
 
+    
+
     private void Start()
     {
         indx = 0;
+        Object.DontDestroyOnLoad(self);
     }
 
     private void Update()
@@ -140,6 +145,7 @@ public class PlayerController : MonoBehaviour
     public void attack()
     {
         RaycastHit2D hit = Physics2D.Raycast(shootpt.transform.position, shootpt.transform.up, range);
+        RaycastHit2D[] hit_p = Physics2D.RaycastAll(shootpt.transform.position, shootpt.transform.up, range);
         
         if (hit.collider == null)
         {
@@ -149,7 +155,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("hit");
-            if (hit.transform.GetComponent<EnemyHealth>() != null)
+            if (hit.transform.CompareTag("Enemy"))
             {
                 if (stack_crit && max_stack < 5)
                 {
@@ -157,29 +163,37 @@ public class PlayerController : MonoBehaviour
                     max_stack++;
                 }
 
+                //crit
                 if ((ammo == 1 && last_shot) || (Random.value < crit_rate))
                 {
+                    Debug.Log("crit");
                     if (hit.transform.GetComponent<EnemyHealth>() == curr_ene)
                     {
                         //Debug.Log("here");
-                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg * focus_fire, hitdrop, deathdrop, knockback, shootpt.transform.up);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg * focus_fire, hitdrop, deathdrop, knockback);
+                        pierce_through(hit_p, hit);
                     }
                     else
                     {
-                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg, hitdrop, deathdrop, knockback, shootpt.transform.up);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg, hitdrop, deathdrop, knockback);
+                        pierce_through(hit_p, hit);
                     }
                 }
 
+                //base
                 else
                 {
+                    Debug.Log("norm");
                     if (hit.transform.GetComponent<EnemyHealth>() == curr_ene)
                     {
                         //Debug.Log("here");
-                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * focus_fire, hitdrop, deathdrop, knockback, shootpt.transform.up);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg * focus_fire, hitdrop, deathdrop, knockback);
+                        pierce_through(hit_p, hit);
                     }
                     else
                     {
-                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg, hitdrop, deathdrop, knockback, shootpt.transform.up);
+                        hit.transform.GetComponent<EnemyHealth>().TakeDamage(dmg, hitdrop, deathdrop, knockback);
+                        pierce_through(hit_p, hit);
                     }
                 }
                 curr_ene = hit.transform.GetComponent<EnemyHealth>();
@@ -274,6 +288,21 @@ public class PlayerController : MonoBehaviour
         attack_state = false;
     }
 
+    public void pierce_through(RaycastHit2D[] hit_p, RaycastHit2D hit)
+    {
+        if (pierce)
+        {
+            for (int i = 0; i < hit_p.Length; i++)
+            {   
+                Transform curr_p = hit_p[i].transform;
+                if (curr_p.CompareTag("Enemy") && curr_p.GetComponent<EnemyHealth>() != hit.transform.GetComponent<EnemyHealth>())
+                {
+                    curr_p.GetComponent<EnemyHealth>().TakeDamage(dmg * crit_dmg * 0.2f, deathdrop: deathdrop);
+                }
+            }
+        }
+    }
+
     public void take_dmg(float dmg, EnemyHealth enemy)
     {
         dmg -= negate_dmg;
@@ -297,7 +326,6 @@ public class PlayerController : MonoBehaviour
         }
 
         enemy.TakeDamage(reflect_dmg, deathdrop: deathdrop, reflect: true);
-        
     }
 
     #region Basic_Card_funcs
@@ -418,6 +446,11 @@ public class PlayerController : MonoBehaviour
     public void king_spades()
     {
         knockback = true;
+    }
+
+    public void queen_spades()
+    {
+        pierce = true;
     }
 
 
