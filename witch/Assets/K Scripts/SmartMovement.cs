@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //[RequireComponent(typeof( NavMeshAgent))]
-public class BasicMovement : MonoBehaviour
+public class SmartMovement : GeneralMovement
 {
     #region Movement_vars
     public NavMeshAgent Agent;
 
     [SerializeField]
-    private PlayerController pc;
+    private Transform pc;
     private float timer;
     #endregion
 
-    private void Start()
+    protected override void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
@@ -26,7 +26,7 @@ public class BasicMovement : MonoBehaviour
         timer = 0;
     }
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         bool move = true;
         if( (pc.transform.position - this.transform.position).magnitude <= 1)
@@ -45,9 +45,11 @@ public class BasicMovement : MonoBehaviour
         }
     }
 
-    private void Findandmovetwoardsplayer()
+    public virtual void Findandmovetwoardsplayer()
     {
         Debug.Log(Agent);
-        Agent.SetDestination(pc.transform.position);
+        Agent.SetDestination(pc.position);
     }
+
+    public void setPlayer(Transform p) { pc = p; }
 }

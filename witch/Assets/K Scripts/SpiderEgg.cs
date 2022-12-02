@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpiderEgg : MonoBehaviour
 {
     #region Movement_vars
+    [SerializeField]
     private Transform pc;
     #endregion
 
@@ -33,7 +34,9 @@ public class SpiderEgg : MonoBehaviour
         if(HatchTimer <= 0)
         {
             SpiderKid sk = Instantiate(SK, transform.position, Quaternion.identity);
+            Debug.Log("instatiated");
             sk.setPlayer(pc);
+            Debug.Log("sest the player");
             Destroy(this.gameObject);
         }
         HatchTimer -= Time.deltaTime;
