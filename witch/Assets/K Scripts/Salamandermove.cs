@@ -37,8 +37,7 @@ public class Salamandermove : MonoBehaviour
         //pc = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         attTimer = 0;
         forward = true;
-        objective = (Vector2) transform.position + (direction.normalized * distance);
-        Debug.Log((direction.normalized * distance));
+        objective = (Vector2) transform.position + direction.normalized * distance;
     }
 
     // Update is called once per frame
@@ -52,28 +51,17 @@ public class Salamandermove : MonoBehaviour
     #region Movement_funcitons
     private void Move()
     {
-        if((objective - (Vector2) transform.position).magnitude < 1)
+      if((objective - (Vector2) transform.position).magnitude < 1)
         {
             if (forward)
             {
                 objective = objective - direction.normalized * distance;
-                forward = !forward;
             }
             else
             {
                 objective = objective + direction.normalized * distance;
-                forward = !forward;
             }
         }
-        if (forward)
-        {
-            salRB.velocity = direction.normalized * movespeed;
-        }
-        else
-        {
-            salRB.velocity = direction.normalized * movespeed * -1;
-        }
-      
     }
     #endregion
 
@@ -94,7 +82,7 @@ public class Salamandermove : MonoBehaviour
         //point of contact
         attTimer = 1f;
         yield return new WaitForSeconds(.5f);
-        //RaycastHit2D[] hits = Physics2D.BoxCastAll(this.transform.position + direction, )
+       
         yield return new WaitForSeconds(.5f);
         attTimer = 0;
         //transform.GetComponent<PlayerController>()

@@ -12,10 +12,12 @@ public class EnemyHealth : MonoBehaviour
     private float curHP;
     public GameObject heart;
     public Rigidbody2D rb;
+    public GeneralMovement movement;
     public Transform player;
     //private bool spawned = false;
     private int count = 0;
-    private float knock_force = 1f;
+    private float knock_force = 20f;
+    private float knock_timer = 0.15f;
 
     #endregion
     // Start is called before the first frame update
@@ -25,9 +27,9 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage(float i, bool hitdrop = false, bool deathdrop = false,  bool knockback = false, Vector3 force = new Vector3(), bool reflect = false)
+    public void TakeDamage(float i, bool hitdrop = false, bool deathdrop = false,  bool knockback = false, bool reflect = false)
     {
-        Debug.Log("took damage");
+        //Debug.Log("took damage");
         curHP -= i;
         if (reflect)
         {
@@ -44,9 +46,10 @@ public class EnemyHealth : MonoBehaviour
 
         if (knockback)
         {
-            Debug.Log("knock");
-            rb.velocity = new Vector2(0, 0);
-            rb.AddForce(force * knock_force);
+            movement.enabled = false;
+            Vector2 direction = (transform.position - player.transform.position).normalized;
+            rb.AddForce(direction * knock_force, ForceMode2D.Impulse);
+            StartCoroutine(reset());
         }
 
         else
@@ -93,8 +96,16 @@ public class EnemyHealth : MonoBehaviour
         //Debug.Log(count);
     }
 
-    //private IEnumerator knock()
-    //{
+    private IEnumerator reset()
+    {
+        float start = 0f;
+        while (start <= knock_timer)
+        {
+            start += Time.deltaTime;
+            yield return null;
+        }
+        rb.velocity = Vector3.zero;
 
-    //} 
+        movement.enabled = true;
+    }
 }

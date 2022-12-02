@@ -2,31 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyAction : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public Transform player;
-    public Transform shootpt;
     public EnemyHealth self_health;
-    public LayerMask inquire;
-    public Vector2 coord;
+    public GeneralMovement state;
     public Vector2 shoot;
-    public float run_speed = 2f;
-    public int range = 10;
 
     public bool ranged_z = true;
     public bool chase_z = false;
-
-    public bool seeing = false;
-    public bool rest_state = false;
-    public bool moving = false;
-    public bool touch = false;
 
     public int atk_range = 0;
     public float atk_timer = 0f;
     public float rest_timer = 0f;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         
     }
@@ -37,15 +27,15 @@ public class EnemyController : MonoBehaviour
         if (chase_z)
         {
             atk_range = 1;
-            if (rest_state == false && touch == true)
+            if (state.rest_state == false && state.touch == true)
             {
-                rest_state = true;
+                state.rest_state = true;
                 atk_timer = 0f;
                 StartCoroutine(fire(atk_range, atk_timer));
             }
-            else if (moving == true)
+            else if (state.moving == true)
             {
-                moving = false;
+                state.moving = false;
                 rest_timer = 2f;
                 StartCoroutine(buffer(rest_timer));
             }
@@ -55,61 +45,24 @@ public class EnemyController : MonoBehaviour
         {
             atk_range = 10;
             //Debug.Log("ranged");
-            if (rest_state == false && (seeing == true || touch == true))
+            if (state.rest_state == false && (state.seeing == true || state.touch == true))
             {
-                rest_state = true;
+                state.rest_state = true;
                 atk_timer = (float)Random.Range(4, 6);
                 StartCoroutine(fire(atk_range, atk_timer));
             }
-            else if (moving == true)
+            else if (state.moving == true)
             {
-                moving = false;
+                state.moving = false;
                 rest_timer = (float)Random.Range(2, 4);
                 StartCoroutine(buffer(rest_timer));
             }
         }
-
-        RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, range, inquire);
-        if (hit.transform == null || hit.transform.CompareTag("Player") == false || touch)
-        {
-            coord = new Vector2(0, 0);
-            seeing = false;
-            //Debug.Log("blind");
-        }
-        else {
-            coord = player.position - transform.position;
-            coord = coord.normalized;
-            seeing = true;
-            //Debug.Log("spot");
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(coord.x * run_speed, coord.y * run_speed);
-        
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            touch = true;
-        }
-        else
-        {
-            touch = false;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        touch = false;
     }
 
     public void attack(int atk_range)
     {
-        RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, atk_range);
+        RaycastHit2D hit = Physics2D.Raycast(state.shootpt.position, state.shootpt.up, atk_range);
         if (hit.transform == null || hit.transform.CompareTag("Player") == false)
         {
             //Debug.Log("miss");
@@ -127,12 +80,12 @@ public class EnemyController : MonoBehaviour
         float start = 0f;
         while (start <= atk_timer)
         {
-            coord = new Vector2(0, 0);
+            state.coord = new Vector2(0, 0);
             start += Time.deltaTime;
             yield return null;
         }
         attack(atk_range);
-        moving = true;
+        state.moving = true;
         //Debug.Log("atk once");
 
     }
@@ -146,6 +99,6 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
         //Debug.Log("rest");
-        rest_state = false;
+        state.rest_state = false;
     }
 }
