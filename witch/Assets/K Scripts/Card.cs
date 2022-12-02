@@ -18,7 +18,6 @@ public class Card : MonoBehaviour
     void Start()
     {
         used = false;
-        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
