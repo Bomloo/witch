@@ -36,12 +36,5 @@ public class SpiderKid : MonoBehaviour
     }
 
     
-<<<<<<< HEAD
-=======
-    }
-<<<<<<< HEAD
->>>>>>> parent of a9e785e (Merge pull request #9 from Bomloo/kevin2)
-=======
->>>>>>> parent of a9e785e (Merge pull request #9 from Bomloo/kevin2)
     #endregion
 }
