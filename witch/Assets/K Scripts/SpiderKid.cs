@@ -5,10 +5,9 @@ using UnityEngine;
 public class SpiderKid : MonoBehaviour
 {
     #region Movement_vars
-    private Transform pc;
-    private Rigidbody2D SKRB;
     [SerializeField]
-    private float movespeed;
+    private Transform pc;
+    private SmartMovement move;
     #endregion
 
     #region Damage_vars
@@ -20,42 +19,29 @@ public class SpiderKid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SKRB = GetComponent<Rigidbody2D>();
+        move = GetComponent<SmartMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        
     }
     #region Movement_funcs
     public void setPlayer(Transform player)
     {
         pc = player;
+        move = GetComponent<SmartMovement>();
+        move.setPlayer(player);
     }
-
-    private void Move()
-    {
-        if (pc != null)
-        {
-            Vector3 distance = pc.position - this.transform.position;
-            SKRB.velocity = distance.normalized * movespeed;
-        }
 
     
+<<<<<<< HEAD
+=======
     }
-    #endregion
-
-    #region Attack_funcs
-    /*IEnumerator attack()
-    {
-        attacking = true;
-        yield return new waitforSeconds();
-        raycaset
-        hit[] raycast = new raycast()
-        check raycast
-        damage;
-        finish raycast;
-    }*/
+<<<<<<< HEAD
+>>>>>>> parent of a9e785e (Merge pull request #9 from Bomloo/kevin2)
+=======
+>>>>>>> parent of a9e785e (Merge pull request #9 from Bomloo/kevin2)
     #endregion
 }
