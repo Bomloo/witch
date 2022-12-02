@@ -11,6 +11,7 @@ public class SpiderMother : MonoBehaviour
     private float moveTimer;
     private float spawnWait;
     [Tooltip("For babies to find player")]
+    [SerializeField]
     private Transform pc;
     #endregion
 
