@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 //[RequireComponent(typeof( NavMeshAgent))]
-public class SmartMovement : GeneralMovement
+public class SmartMovement : MonoBehaviour
 {
     #region Movement_vars
     public NavMeshAgent Agent;
@@ -44,7 +44,6 @@ public class SmartMovement : GeneralMovement
             timer -= Time.deltaTime;
         }
     }
-
     public virtual void Findandmovetwoardsplayer()
     {
         Debug.Log(Agent);
