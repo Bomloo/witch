@@ -14,7 +14,7 @@ public class SmartMovement : MonoBehaviour
     private float timer;
     #endregion
 
-    protected override void Start()
+    private void Start()
     {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
@@ -26,7 +26,7 @@ public class SmartMovement : MonoBehaviour
         timer = 0;
     }
     // Update is called once per frame
-    protected override void Update()
+    private void Update()
     {
         bool move = true;
         if( (pc.transform.position - this.transform.position).magnitude <= 1)
