@@ -198,8 +198,9 @@ GameObject:
   - component: {fileID: 3132069075986458437}
   - component: {fileID: 3132069075986458442}
   - component: {fileID: 3132069075986458439}
-  - component: {fileID: 3132069075986458433}
   - component: {fileID: 3132069075986458438}
+  - component: {fileID: 6756628660438915712}
+  - component: {fileID: 6780165814439588225}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -315,36 +316,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 50
   heart: {fileID: 3864840020447558298, guid: 81885d6b793f94d4ca0add7b7ed36c9c, type: 3}
---- !u!114 &3132069075986458433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3132069075986458443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf90645948edd643a81065688142e1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 3132069075986458438}
-  player: {fileID: 6636790396404325248, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
-  shootpt: {fileID: 3132069075119956681}
-  trig: {fileID: 3132069074780571303}
-  self_health: {fileID: 3132069075986458439}
-  coord: {x: 0, y: 0}
-  shoot: {x: 0, y: 0}
-  run_speed: 2
-  range: 10
-  ranged_z: 1
-  chase_z: 0
-  seeing: 0
-  rest_state: 0
-  moving: 0
-  touch: 0
-  atk_range: 10
-  atk_timer: 0
-  rest_timer: 0
+  rb: {fileID: 0}
+  movement: {fileID: 0}
+  player: {fileID: 0}
 --- !u!50 &3132069075986458438
 Rigidbody2D:
   serializedVersion: 4
@@ -366,3 +340,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6756628660438915712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3132069075986458443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c23acabe97e8d8428b3a186065f3c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knock: 0
+  rb: {fileID: 0}
+  player: {fileID: 0}
+  shootpt: {fileID: 0}
+  inquire:
+    serializedVersion: 2
+    m_Bits: 51
+  coord: {x: 0, y: 0}
+  run_speed: 2
+  range: 10
+  seeing: 0
+  rest_state: 0
+  moving: 0
+  touch: 0
+--- !u!114 &6780165814439588225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3132069075986458443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d74248a867e1e4e87e2c653b79a36d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: {fileID: 0}
+  health: {fileID: 0}
+  shoot: {x: 0, y: 0}
+  ranged_z: 1
+  chase_z: 0
+  atk_range: 0
+  atk_timer: 0
+  rest_timer: 0

@@ -8,10 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     
     public Rigidbody2D rb;
-    public GameObject shootpt;
+    public Transform shootpt;
     public PlayerAction pa;
     public HealthDrop heart;
-    public GameObject self;
 
 
     #region Basic_var_bools
@@ -77,7 +76,17 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         indx = 0;
-        Object.DontDestroyOnLoad(self);
+        //removed self, changed to this.gameobject
+        Object.DontDestroyOnLoad(this.gameObject);
+        
+
+    }
+
+    private void Awake()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+        shootpt = this.transform.GetChild(0).GetChild(0).transform;
+        pa = this.GetComponent<PlayerAction>();
     }
 
     private void Update()
@@ -144,8 +153,8 @@ public class PlayerController : MonoBehaviour
 
     public void attack()
     {
-        RaycastHit2D hit = Physics2D.Raycast(shootpt.transform.position, shootpt.transform.up, range);
-        RaycastHit2D[] hit_p = Physics2D.RaycastAll(shootpt.transform.position, shootpt.transform.up, range);
+        RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, range);
+        RaycastHit2D[] hit_p = Physics2D.RaycastAll(shootpt.position, shootpt.up, range);
         
         if (hit.collider == null)
         {
