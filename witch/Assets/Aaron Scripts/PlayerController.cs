@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shootpt;
     public PlayerAction pa;
     public HealthDrop heart;
-    public GameObject self;
+    static GameObject self;
 
 
     #region Basic_var_bools
@@ -77,7 +77,18 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         indx = 0;
-        Object.DontDestroyOnLoad(self);
+        Debug.Log(self);
+        if (self == null)
+        {
+           
+            self = this.gameObject;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(self);
+        
     }
 
     private void Update()

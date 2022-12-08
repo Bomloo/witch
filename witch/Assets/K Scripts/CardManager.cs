@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
-    GameObject instance;
+    static GameObject instance;
 
     #region UI_elements
     [SerializeField]
@@ -38,12 +38,15 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(instance != null)
+        if(instance == null)
+        {
+            instance = this.gameObject;
+        }
+        else
         {
             Destroy(this.gameObject);
         }
-        instance = this.gameObject;
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this);
         player_cards = new Card[3];
         drawn = new List<int>();
         current_card = 0;
