@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     #region Basic_var_bools
     public bool attack_state = false;
+    public bool attacking = false;
     //private bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
