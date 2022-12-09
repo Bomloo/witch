@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DumbMovement : MonoBehaviour
+public class DumbMovement : Movement
 {
     public Rigidbody2D rb;
     public Transform player;
@@ -20,7 +20,12 @@ public class DumbMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+    }
+
+    private void Awake()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+        shootpt = this.transform.GetChild(0).GetChild(0).transform;
     }
 
     // Update is called once per frame
@@ -44,8 +49,10 @@ public class DumbMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(coord.x * run_speed, coord.y * run_speed);
-
+        if (knock == false)
+        {
+            rb.velocity = new Vector2(coord.x * run_speed, coord.y * run_speed);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
