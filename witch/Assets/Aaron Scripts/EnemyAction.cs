@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyAction : MonoBehaviour
 {
-    public EnemyHealth self_health;
-    public GeneralMovement state;
+    public DumbMovement state;
+    public EnemyHealth health;
     public Vector2 shoot;
 
     public bool ranged_z = true;
@@ -18,7 +18,13 @@ public class EnemyAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    private void Awake()
+    {
+        state = this.GetComponent<DumbMovement>();
+        health = this.GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
@@ -70,7 +76,7 @@ public class EnemyAction : MonoBehaviour
         else
         {
             //Debug.Log("hit");
-            hit.transform.GetComponent<PlayerController>().take_dmg(2, self_health);
+            hit.transform.GetComponent<PlayerController>().take_dmg(2, health);
         }
     }
 

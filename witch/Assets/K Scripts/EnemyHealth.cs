@@ -12,7 +12,7 @@ public class EnemyHealth : MonoBehaviour
     private float curHP;
     public GameObject heart;
     public Rigidbody2D rb;
-    public GeneralMovement movement;
+    public Movement movement;
     public Transform player;
     //private bool spawned = false;
     private int count = 0;
@@ -24,6 +24,12 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {
         curHP = maxHP;
+    }
+
+    private void Awake()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
+        movement = this.GetComponent<Movement>();
     }
 
 
@@ -46,7 +52,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (knockback)
         {
-            movement.enabled = false;
+            movement.knock = true;
             Vector2 direction = (transform.position - player.transform.position).normalized;
             rb.AddForce(direction * knock_force, ForceMode2D.Impulse);
             StartCoroutine(reset());
@@ -106,6 +112,6 @@ public class EnemyHealth : MonoBehaviour
         }
         rb.velocity = Vector3.zero;
 
-        movement.enabled = true;
+        movement.knock = false;
     }
 }

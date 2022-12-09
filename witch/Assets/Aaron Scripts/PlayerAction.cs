@@ -108,11 +108,12 @@ public class PlayerAction : MonoBehaviour
             StartCoroutine(rest(rest_timer));
         }
 
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && controller.reloading == false && ammo > 0)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && controller.reloading == false && ammo > 0 && controller.attack_state == false)
         {
             //Debug.Log(controller.reloading);
-            ammo--;
             controller.attack_state = true;
+            ammo--;
+            
             StartCoroutine(countdown_attack(shoot_timer));
         }
 

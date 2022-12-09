@@ -46,6 +46,9 @@ public class GeneralMovement : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         timer = 0;
+
+        rb = this.GetComponent<Rigidbody2D>();
+        shootpt = this.transform.GetChild(0).GetChild(0).transform;
     }
 
     // Update is called once per frame
