@@ -31,6 +31,8 @@ public class CardManager : MonoBehaviour
     private ClubCard CCard;
     [SerializeField]
     private SpadeCard SCard;
+    private Card[] temp_hold;
+    private int temp_index;
 
     #endregion
 
@@ -50,6 +52,8 @@ public class CardManager : MonoBehaviour
         player_cards = new Card[3];
         drawn = new List<int>();
         current_card = 0;
+        temp_hold = new Card[3];
+        temp_index = 0;
     }
 
     // Update is called once per frame
@@ -132,6 +136,7 @@ public class CardManager : MonoBehaviour
 
     public Card DrawCardPlayer()
     {
+        
         Card c = null;
         bool draw = true;
         string s = "";
@@ -209,6 +214,100 @@ public class CardManager : MonoBehaviour
 
     }
 
+    public Card DrawCardtemp()
+    {
+
+        Card c = null;
+        bool draw = true;
+        string s = "";
+        int i = 0;
+        lock (instance)
+        {
+            while (draw)
+            {
+                s = suits[Random.Range(0, 4)];
+                i = Random.Range(1, 14);
+                switch (s)
+                {
+                    case "Heart":
+                        if (!drawn.Contains(i))
+                        {
+                            draw = false;
+                            drawn.Add(i);
+                            c = Instantiate<HeartCard>(HCard);
+                        }
+                        continue;
+                    case "Diamond":
+                        if (!drawn.Contains(i + 13))
+                        {
+                            draw = false;
+                            drawn.Add(i + 13);
+                            c = Instantiate<DiamondCard>(DCard);
+                        }
+                        continue;
+                    case "Club":
+                        if (!drawn.Contains(i + 26))
+                        {
+                            draw = false;
+                            drawn.Add(i + 26);
+                            c = Instantiate<ClubCard>(CCard);
+                        }
+                        continue;
+                    case "Spade":
+                        if (!drawn.Contains(i + 39))
+                        {
+                            draw = false;
+                            drawn.Add(i + 39);
+                            c = Instantiate<SpadeCard>(SCard);
+                        }
+                        continue;
+                }
+
+            }
+            c.SetSuitandNumber(s, i);
+            temp_hold[temp_index] = c;
+            temp_index++;
+        }
+        if (s == "Diamond" && i == 1)
+        {
+            c.isActive = true;
+        }
+        else if (s == "Heart")
+        {
+            switch (i)
+            {
+                case 2:
+                    c.isActive = true;
+                    break;
+                case 3:
+                    c.isActive = true;
+                    break;
+                case 4:
+                    c.isActive = true;
+                    break;
+            }
+        }
+
+        return c;
+
+    }
+
+    public void keepCard(Card c)
+    {
+        foreach(Card card in temp_hold)
+        {
+            if(card == c)
+            {
+                player_cards[current_card] = c;
+                current_card++;
+            }
+            else
+            {
+                Destroy(card.gameObject);
+            }
+        }
+        temp_index = 0;
+    }
     //public Card ReplaceCard(int i)
     //{
 
