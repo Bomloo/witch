@@ -38,13 +38,20 @@ public class Salamandermove : MonoBehaviour
         attTimer = 0;
         forward = true;
         objective = (Vector2) transform.position + (direction.normalized * distance);
-        Debug.Log((direction.normalized * distance));
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(attTimer <= 0) { 
+            Move();
+        }
+        else
+        {
+            salRB.velocity = Vector2.zero;
+        }
+       
        
     }
     #endregion
@@ -67,11 +74,13 @@ public class Salamandermove : MonoBehaviour
         }
         if (forward)
         {
-            salRB.velocity = direction.normalized * movespeed;
+            Vector2 temp = objective - (Vector2)this.transform.position;
+            salRB.velocity = temp.normalized * movespeed;
         }
         else
         {
-            salRB.velocity = direction.normalized * movespeed * -1;
+            Vector2 temp = objective - (Vector2)this.transform.position;
+            salRB.velocity = temp.normalized * movespeed ;
         }
       
     }
@@ -84,17 +93,49 @@ public class Salamandermove : MonoBehaviour
         if (collision.transform.CompareTag("Player")){
             if(attTimer <= 0)
             {
-                StartCoroutine(Attack());
+                StartCoroutine(BiteAttack());
             }
         }
     }
-    IEnumerator Attack()
+    IEnumerator BiteAttack()
     {
         // insert animation here
         //point of contact
         attTimer = 1f;
         yield return new WaitForSeconds(.5f);
-        //RaycastHit2D[] hits = Physics2D.BoxCastAll(this.transform.position + direction, )
+        RaycastHit2D[] hits = Physics2D.BoxCastAll( ((Vector2) this.transform.position) + direction, Vector2.one, 0, direction, 2f);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                Debug.Log("I hit player");
+                hit.transform.GetComponent<PlayerController>().take_dmg(dmg, GetComponent<EnemyHealth>());
+            }
+        }
+        yield return new WaitForSeconds(.5f);
+        attTimer = 0;
+        //transform.GetComponent<PlayerController>()
+        //finish animation
+
+    }
+    IEnumerator TailAttack()
+    {
+        // insert animation here
+        //point of contact
+        attTimer = 1f;
+        yield return new WaitForSeconds(.5f);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(((Vector2)this.transform.position) - direction, new Vector2(1.5f, 1), 0, direction* -1, 2f);
+        foreach (RaycastHit2D hit in hits)
+        {
+                
+            if (hit.transform.CompareTag("Player"))                
+            {                   
+                Debug.Log("I hit player");
+                hit.transform.GetComponent<PlayerController>().take_dmg(dmg, GetComponent<EnemyHealth>());                
+            }
+        }
+        
+        
         yield return new WaitForSeconds(.5f);
         attTimer = 0;
         //transform.GetComponent<PlayerController>()
@@ -102,5 +143,19 @@ public class Salamandermove : MonoBehaviour
 
     }
 
+    public void StartTailAttack()
+    {
+        if (attTimer <= 0)
+        {
+            StartCoroutine(TailAttack());
+        }
+    }
+    public void StartBiteAttack()
+    {
+        if (attTimer <= 0)
+        {
+            StartCoroutine(BiteAttack());
+        }
+    }
     #endregion
 }

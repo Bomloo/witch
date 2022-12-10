@@ -5,11 +5,20 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform player;
-    public GameObject self;
+    static GameObject self;
 
     private void Start()
     {
-        Object.DontDestroyOnLoad(self);
+        if(self == null)
+        {
+            self = this.gameObject;
+            
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
