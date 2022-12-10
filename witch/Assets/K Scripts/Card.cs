@@ -9,6 +9,8 @@ public class Card : MonoBehaviour
     public int number;
     public bool used;
     public string description;
+    [SerializeField]
+    GameObject image;
     #endregion
 
     public bool isActive;
