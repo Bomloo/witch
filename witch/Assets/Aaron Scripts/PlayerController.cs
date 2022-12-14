@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     public Transform shootpt;
     public PlayerAction pa;
     public HealthDrop heart;
+    public Animator animator;
 
 
     #region Basic_var_bools
     public bool attack_state = false;
     public bool attacking = false;
-    //private bool move_state = false;
+    //public bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
     public bool dash_state = false;
@@ -134,18 +135,20 @@ public class PlayerController : MonoBehaviour
 
     public void move(float x, float y)
     {
-        //if (x == 0 && y == 0)
-        //{
-        //    move_state = false;
-        //}
-        //else if (dash_state == true)
-        //{
-        //    move_state = false;
-        //}
-        //else
-        //{
-        //    move_state = true;
-        //}
+        if (x == 0 && y == 0)
+        {
+            animator.SetBool("Walking", false);
+        }
+        else if (dash_state == true)
+        {
+            animator.SetBool("Walking", false);
+        }
+        else
+        {
+            animator.SetBool("Walking", true);
+            animator.SetFloat("x", x);
+            animator.SetFloat("y", y);
+        }
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
         //Debug.Log("moving");
