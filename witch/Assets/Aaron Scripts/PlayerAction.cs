@@ -112,6 +112,7 @@ public class PlayerAction : MonoBehaviour
         {
             //Debug.Log(controller.reloading);
             controller.attack_state = true;
+
             ammo--;
             
             StartCoroutine(countdown_attack(shoot_timer));

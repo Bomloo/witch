@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     #region Basic_var_bools
     public bool attack_state = false;
     public bool attacking = false;
-    //public bool move_state = false;
+    public bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
     public bool dash_state = false;
@@ -108,6 +108,11 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+
+        animator.SetBool("Walking", move_state);
+        animator.SetBool("Shooting", attack_state);
+        animator.SetFloat("x", shootpt.position.x);
+        animator.SetFloat("y", shootpt.position.y);
     }
 
     public void add_hand (Card card)
@@ -137,17 +142,17 @@ public class PlayerController : MonoBehaviour
     {
         if (x == 0 && y == 0)
         {
-            animator.SetBool("Walking", false);
+            move_state = false;
         }
         else if (dash_state == true)
         {
-            animator.SetBool("Walking", false);
+            move_state = false;
         }
         else
         {
-            animator.SetBool("Walking", true);
-            animator.SetFloat("x", x);
-            animator.SetFloat("y", y);
+            move_state = true;
+            //animator.SetFloat("x", x);
+            //animator.SetFloat("y", y);
         }
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
@@ -159,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, range);
         RaycastHit2D[] hit_p = Physics2D.RaycastAll(shootpt.position, shootpt.up, range);
-        
+
         if (hit.collider == null)
         {
             //Debug.Log("missed");
@@ -299,6 +304,7 @@ public class PlayerController : MonoBehaviour
         }
 
         attack_state = false;
+        move_state = false;
     }
 
     public void pierce_through(RaycastHit2D[] hit_p, RaycastHit2D hit)
