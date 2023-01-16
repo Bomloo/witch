@@ -13,8 +13,10 @@ public class GrabOneCard : MonoBehaviour
     {
         cm = FindObjectOfType<CardManager>();
         Card c = cm.DrawCardtemp();
-        ci.SetCard(c);
-        ci.SetCardManager(cm);
+        CardInteractor cardi = Instantiate<CardInteractor>(ci);
+        cardi.SetCard(c);
+        cardi.SetCardManager(cm);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame

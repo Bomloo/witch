@@ -301,8 +301,44 @@ public class CardManager : MonoBehaviour
                 player_cards[current_card] = c;
                 current_card++;
             }
-            else
+            else if(card != null)
             {
+                string s = card.suit;
+                switch (s)
+                {
+                    case "Heart":
+                        if (!drawn.Contains(card.number))
+                        {
+                           
+                            drawn.Remove(card.number);
+                            
+                        }
+                        continue;
+                    case "Diamond":
+                        if (!drawn.Contains(card.number + 13))
+                        {
+                            
+                            drawn.Remove(card.number + 13);
+                            
+                        }
+                        continue;
+                    case "Club":
+                        if (!drawn.Contains(card.number + 26))
+                        {
+                            
+                            drawn.Remove(card.number + 26);
+                            
+                        }
+                        continue;
+                    case "Spade":
+                        if (!drawn.Contains(card.number + 39))
+                        {
+                            
+                            drawn.Remove(card.number + 39);
+                            
+                        }
+                        continue;
+                }
                 Destroy(card.gameObject);
             }
         }
