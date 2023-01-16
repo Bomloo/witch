@@ -5348,6 +5348,30 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790395652357807, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6636790396404325248, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -5390,6 +5414,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636790396404325248, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790396404325249, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6636790396404325249, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
@@ -5456,6 +5484,18 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6636790396404325261, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: run_speed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790396404325261, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: dash_speed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636790396404325261, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
+      propertyPath: rest_timer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6636790397014768150, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.2
