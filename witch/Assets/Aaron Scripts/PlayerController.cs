@@ -8,15 +8,16 @@ public class PlayerController : MonoBehaviour
 {
     
     public Rigidbody2D rb;
-    public Transform shootpt;
+    //public Transform shootpt;
     public PlayerAction pa;
     public HealthDrop heart;
+    public Animator animator;
 
 
     #region Basic_var_bools
     public bool attack_state = false;
     public bool attacking = false;
-    //private bool move_state = false;
+    public bool move_state = false;
     public bool reload_state = false;
     public bool reloading = false;
     public bool dash_state = false;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody2D>();
-        shootpt = this.transform.GetChild(0).GetChild(0).transform;
+        //shootpt = this.transform.GetChild(0).GetChild(0).transform;
         pa = this.GetComponent<PlayerAction>();
     }
 
@@ -107,6 +108,11 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+
+        animator.SetBool("Walking", move_state);
+        animator.SetBool("Shooting", attack_state);
+        animator.SetBool("Dashing", dash_state);
+        // cannot constantly update x and y since it will change
     }
 
     public void add_hand (Card card)
@@ -134,29 +140,33 @@ public class PlayerController : MonoBehaviour
 
     public void move(float x, float y)
     {
-        //if (x == 0 && y == 0)
-        //{
-        //    move_state = false;
-        //}
-        //else if (dash_state == true)
-        //{
-        //    move_state = false;
-        //}
-        //else
-        //{
-        //    move_state = true;
-        //}
+        if (x == 0 && y == 0)
+        {
+            move_state = false;
+        }
+        else
+        {
+            move_state = true;
+            attack_state = false;
+        }
         Vector2 target_velocity = new Vector2(x, y);
         rb.velocity = target_velocity;
         //Debug.Log("moving");
 
     }
 
-    public void attack()
+    public void attack_anim(float x, float y)
     {
-        RaycastHit2D hit = Physics2D.Raycast(shootpt.position, shootpt.up, range);
-        RaycastHit2D[] hit_p = Physics2D.RaycastAll(shootpt.position, shootpt.up, range);
-        
+        animator.SetFloat("x", x);
+        animator.SetFloat("y", y);
+    }
+
+    public void attack(Vector2 pos, Vector2 dir)
+    {
+
+        RaycastHit2D hit = Physics2D.Raycast(pos, dir, range);
+        RaycastHit2D[] hit_p = Physics2D.RaycastAll(pos, dir, range);
+
         if (hit.collider == null)
         {
             //Debug.Log("missed");

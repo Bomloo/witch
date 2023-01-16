@@ -22,4 +22,6 @@ public class Origin : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0,  Mathf.Atan2(mousepos.y, mousepos.x) * Mathf.Rad2Deg - 90f);
 
     }
+
+
 }
