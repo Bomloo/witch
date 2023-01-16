@@ -106,6 +106,7 @@ public class PlayerAction : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftShift) && controller.resting == false && controller.attack_state == false)
         {
             controller.dash_state = true;
+            controller.move_state = false;
             controller.resting = true;
             controller.vulnerable = false;
 
