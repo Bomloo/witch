@@ -50,9 +50,8 @@ public class PlayerAction : MonoBehaviour
         
         
         // 2 states to check for reload
-        // if there is 1 reload state, it will be changed after the timer
-        // update will call it repeatedly while the timer is running since statement is true
-        // leads to movement speed being increased by 2 many times (due to movement speed being reduced by 2 during reload then increased after finishing)
+        // if there is 1 reload state, it will be changed after the timer ends, however during the time, the state will remain true and be called repeatedly
+        // leads to movement speed being increased by 2 many times (due to movement speed being reduced by 2 during reload then increased after finishing, multiple reloads are called so multiple +2s will happen at end)
         // attack will still be able to be called during reload and you can reach negative ammunition
 
         // solution: use 2 reload states, one used as a check to start reload, second as a check for attacking
@@ -106,7 +105,6 @@ public class PlayerAction : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftShift) && controller.resting == false && controller.attack_state == false)
         {
             controller.dash_state = true;
-            controller.move_state = false;
             controller.resting = true;
             controller.vulnerable = false;
 
@@ -114,6 +112,15 @@ public class PlayerAction : MonoBehaviour
             //dash_dir = Mathf.Atan2(coord.y, coord.x);
 
             Vector2 dir = shootpt.up.normalized;
+
+            if (dir.x > 0)
+            {
+                self_sprite.flipX = false;
+            }
+            else if (dir.x < 0)
+            {
+                self_sprite.flipX = true;
+            }
 
             StartCoroutine(dash(dash_speed, dash_timer, dir.x, dir.y));
             StartCoroutine(rest(rest_timer));
@@ -145,6 +152,9 @@ public class PlayerAction : MonoBehaviour
 
         else if (controller.attack_state == false && controller.dash_state == false)
         {
+            // ^^ checks attack, prevents moving while attacking --> sliding attack animation
+            // added dash_state check to prevent sprite flipping to prevent walk vector from overriding the dash vector (which dictates sprite direction)
+
             horizontal_move = Input.GetAxisRaw("Horizontal");
             vertical_move = Input.GetAxisRaw("Vertical");
 
@@ -165,7 +175,8 @@ public class PlayerAction : MonoBehaviour
     private void FixedUpdate()
     {
         //controller.move(coord.x * run_speed, coord.y * run_speed);
-        //this makes dashing never happen
+        //having ^^ and removing vv makes dashing never happen for some reason
+        //my guess is that it overrides the velocity application from dash since movement velocity is constantly updated vs dash vector only applied once
 
         if (controller.dash_state == true)
         {

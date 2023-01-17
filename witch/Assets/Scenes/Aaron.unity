@@ -5494,7 +5494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636790396404325261, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
       propertyPath: rest_timer
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6636790397014768150, guid: cf265c78105bf224db0d877b931aa1fb, type: 3}
       propertyPath: m_LocalScale.y
