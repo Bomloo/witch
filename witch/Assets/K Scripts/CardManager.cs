@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
     static GameObject instance;
+    [SerializeField]
+    private Canvas card_selection;
 
     #region UI_elements
     [SerializeField]
@@ -31,6 +33,7 @@ public class CardManager : MonoBehaviour
     private ClubCard CCard;
     [SerializeField]
     private SpadeCard SCard;
+    [SerializeField]
     private Card[] temp_hold;
     private int temp_index;
 
@@ -265,6 +268,7 @@ public class CardManager : MonoBehaviour
 
             }
             c.SetSuitandNumber(s, i);
+            
             temp_hold[temp_index] = c;
             temp_index++;
         }
@@ -301,16 +305,117 @@ public class CardManager : MonoBehaviour
                 player_cards[current_card] = c;
                 current_card++;
             }
-            else
+            else if(card != null)
             {
+                string s = card.suit;
+                switch (s)
+                {
+                    case "Heart":
+                        if (!drawn.Contains(card.number))
+                        {
+                           
+                            drawn.Remove(card.number);
+                            
+                        }
+                        continue;
+                    case "Diamond":
+                        if (!drawn.Contains(card.number + 13))
+                        {
+                            
+                            drawn.Remove(card.number + 13);
+                            
+                        }
+                        continue;
+                    case "Club":
+                        if (!drawn.Contains(card.number + 26))
+                        {
+                            
+                            drawn.Remove(card.number + 26);
+                            
+                        }
+                        continue;
+                    case "Spade":
+                        if (!drawn.Contains(card.number + 39))
+                        {
+                            
+                            drawn.Remove(card.number + 39);
+                            
+                        }
+                        continue;
+                }
                 Destroy(card.gameObject);
             }
         }
         temp_index = 0;
     }
+    
+    public void UIKeepCard(Card c)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (temp_hold[i] == c)
+            {
+                player_cards[current_card] = c;
+                current_card++;
+                FindObjectOfType<PlayerController>().add_hand(c);
+            }
+            else if (temp_hold[i]!= null)
+            {
+                Debug.Log("I am keeping a card");
+                string s = temp_hold[i].suit;
+                switch (s)
+                {
+                    case "Heart":
+                        if (drawn.Contains(temp_hold[i].number))
+                        {
+
+                            drawn.Remove(temp_hold[i].number);
+                            Debug.Log("card Destroyed");
+                            Destroy(temp_hold[i].gameObject);
+
+                        }
+                        continue;
+                    case "Diamond":
+                        if (drawn.Contains(temp_hold[i].number + 13))
+                        {
+
+                            drawn.Remove(temp_hold[i].number + 13);
+                            Debug.Log("card Destroyed");
+                            Destroy(temp_hold[i].gameObject);
+                        }
+                        continue;
+                    case "Club":
+                        if (drawn.Contains(temp_hold[i].number + 26))
+                        {
+
+                            drawn.Remove(temp_hold[i].number + 26);
+                            Debug.Log("card Destroyed");
+                            Destroy(temp_hold[i].gameObject);
+                        }
+                        continue;
+                    case "Spade":
+                        if (drawn.Contains(temp_hold[i].number + 39))
+                        {
+
+                            drawn.Remove(temp_hold[i].number + 39);
+                            Debug.Log("card Destroyed");
+                            Destroy(temp_hold[i].gameObject);
+                        }
+                        continue;
+                }
+                //Debug.Log("card Destroyed");
+                //Destroy(temp_hold[i].gameObject);
+            }
+        }
+        temp_index = 0;
+        card_selection.gameObject.SetActive(false);
+    }
+    
     //public Card ReplaceCard(int i)
     //{
 
     //}
+
+
     #endregion
 }

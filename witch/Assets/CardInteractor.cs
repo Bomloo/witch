@@ -35,7 +35,7 @@ public class CardInteractor : MonoBehaviour
         {
             collision.transform.GetComponent<PlayerController>().add_hand(c);
         }
-
+        cm.keepCard(c);
         CardInteractor[] interactors = FindObjectsOfType<CardInteractor>();
         foreach(CardInteractor ci in interactors)
         {
@@ -44,13 +44,12 @@ public class CardInteractor : MonoBehaviour
                 ci.DestoyConnections();
             }
         }
-        cm.keepCard(c);
         Destroy(this.gameObject);
     }
 
     public void DestoyConnections()
     {
-        Destroy(c.gameObject);
+        
         Destroy(this.gameObject);
     }
 
