@@ -102,7 +102,7 @@ public class PlayerAction : MonoBehaviour
         //    controller.crouch();
         //}
 
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && controller.resting == false && controller.attack_state == false)
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && controller.resting == false && controller.attack_state == false && controller.move_state == true)
         {
             controller.dash_state = true;
             controller.resting = true;
