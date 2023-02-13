@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("Walking", move_state);
         animator.SetBool("Shooting", attack_state);
+        // note in animator, there is an any --> walk
+        // with only transition to neutral then to walking, dashing sometimes skips neutral and will get stuck when it cant transition to walking
         animator.SetBool("Dashing", dash_state);
         // cannot constantly update x and y since it will change
     }
@@ -141,6 +143,10 @@ public class PlayerController : MonoBehaviour
     public void move(float x, float y)
     {
         if (x == 0 && y == 0)
+        {
+            move_state = false;
+        }
+        else if (dash_state == true)
         {
             move_state = false;
         }
@@ -298,6 +304,8 @@ public class PlayerController : MonoBehaviour
             //curr_ene = hit.transform.GetComponent<Salamandermove>();
         }
         //ammoText.text = "Ammo: " + ammo.ToString();
+
+        // we keep ammo -- here to keep track on the controller side, allows for reload call
         ammo--;
         if (ammo == 0)
         {
