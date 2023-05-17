@@ -35,7 +35,10 @@ public class SpiderEgg : MonoBehaviour
         {
             SpiderKid sk = Instantiate(SK, transform.position, Quaternion.identity);
             Debug.Log("instatiated");
+            sk.transform.rotation = this.transform.rotation;
             sk.setPlayer(pc);
+            sk.GetComponent<GeneralMovement>().player = pc;
+            sk.GetComponent<GeneralMovement>().pc = pc.GetComponent<PlayerController>();
             Debug.Log("sest the player");
             Destroy(this.gameObject);
         }

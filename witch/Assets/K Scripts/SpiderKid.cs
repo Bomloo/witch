@@ -29,7 +29,7 @@ public class SpiderKid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(this.transform.rotation);
     }
     #region Movement_funcs
     public void setPlayer(Transform player)
@@ -37,6 +37,7 @@ public class SpiderKid : MonoBehaviour
         pc = player;
         move = GetComponent<SmartMovement>();
         move.setPlayer(player);
+        
     }
 
 
