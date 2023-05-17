@@ -8,8 +8,8 @@ public class GeneralMovement : MonoBehaviour
     #region Smart_vars
     public NavMeshAgent Agent;
 
-    [SerializeField]
-    private PlayerController pc;
+    //[SerializeField]
+    public PlayerController pc;
     private float timer;
     #endregion
 
@@ -48,7 +48,7 @@ public class GeneralMovement : MonoBehaviour
         timer = 0;
 
         rb = this.GetComponent<Rigidbody2D>();
-        shootpt = this.transform.GetChild(0).GetChild(0).transform;
+        //shootpt = this.transform.GetChild(0).GetChild(0).transform;
     }
 
     // Update is called once per frame
