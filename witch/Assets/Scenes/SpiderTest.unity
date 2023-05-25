@@ -14873,6 +14873,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3385087995026738247, guid: 87ec63b35fd2737488fd5f31e954477d, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3385087995026738250, guid: 87ec63b35fd2737488fd5f31e954477d, type: 3}
       propertyPath: SK
       value: 
@@ -14904,7 +14908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4139424213303900834, guid: 80e970aa9a7356448ac51499538a7ce1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4139424213303900835, guid: 80e970aa9a7356448ac51499538a7ce1, type: 3}
       propertyPath: pc
@@ -14953,6 +14957,10 @@ PrefabInstance:
     - target: {fileID: 4139424213303900837, guid: 80e970aa9a7356448ac51499538a7ce1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139424213303900838, guid: 80e970aa9a7356448ac51499538a7ce1, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80e970aa9a7356448ac51499538a7ce1, type: 3}
@@ -15022,6 +15030,10 @@ PrefabInstance:
     - target: {fileID: 6689257091350420452, guid: 39ce9826fa39abb4eaf6b44e2501e5f4, type: 3}
       propertyPath: m_Name
       value: SpiderKid
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689257091350420452, guid: 39ce9826fa39abb4eaf6b44e2501e5f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6689257091350420452, guid: 39ce9826fa39abb4eaf6b44e2501e5f4, type: 3}
       propertyPath: m_TagString
